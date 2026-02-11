@@ -1,0 +1,7 @@
+{
+  "name": "2.0 AIMED - AI Medical Dictation",
+  "description": "Specialized AI tool for medical dictation tailored for the Balkan region, helping doctors save time and improve finding accuracy.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

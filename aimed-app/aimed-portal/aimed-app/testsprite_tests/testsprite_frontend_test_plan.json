@@ -1,0 +1,578 @@
+[
+  {
+    "id": "TC001",
+    "title": "Email/Password Registration Success",
+    "description": "Verify that a user can register successfully with valid full name, specialization, clinic name, email, and password meeting all validation criteria.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the registration page (/registracija)."
+      },
+      {
+        "type": "action",
+        "description": "Fill the registration form with valid full name, specialization, clinic name, valid email, and password with at least 8 characters and matching confirmation."
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that a success confirmation email notification is shown."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify profile data is stored in localStorage."
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Email/Password Registration Validation Errors",
+    "description": "Verify validation errors occur if registration inputs do not meet requirements such as short password or password mismatch.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the registration page."
+      },
+      {
+        "type": "action",
+        "description": "Fill the registration form with invalid data, e.g., password less than 8 characters or mismatched password confirmation."
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the form."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appropriate validation error messages are displayed."
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure the form is not submitted successfully."
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Email/Password Login Success",
+    "description": "Ensure user can login with valid email and password and is redirected correctly to the dashboard.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page (/login)."
+      },
+      {
+        "type": "action",
+        "description": "Enter registered email and correct password."
+      },
+      {
+        "type": "action",
+        "description": "Click the login button."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify successful login and navigation to the dashboard."
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Email/Password Login Failure",
+    "description": "Verify appropriate error message is shown when login credentials are invalid.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Go to login page."
+      },
+      {
+        "type": "action",
+        "description": "Enter unregistered email or incorrect password."
+      },
+      {
+        "type": "action",
+        "description": "Click login button."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify error message indicating invalid credentials is displayed."
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Password Reset Flow",
+    "description": "Test that a user can request password reset email and receive success confirmation.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to password reset page (/reset-password)."
+      },
+      {
+        "type": "action",
+        "description": "Enter registered email address."
+      },
+      {
+        "type": "action",
+        "description": "Submit password reset request."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify success confirmation that reset email was sent is displayed."
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "GDPR Consent Gate Blocking Access Without Consent",
+    "description": "Ensure that after first login, GDPR consent modal is shown blocking access until user explicitly accepts the consent.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login with a valid user account who has not accepted GDPR consent consent version v1.0."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that full-screen GDPR consent modal with detailed information is displayed."
+      },
+      {
+        "type": "assertion",
+        "description": "Attempt to navigate to any app page and confirm access is blocked until consent is given."
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "GDPR Consent Acceptance Remembered and Version-aware",
+    "description": "Verify that after acceptance, GDPR consent modal does not appear until a new version is released.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as user and accept GDPR consent modal."
+      },
+      {
+        "type": "action",
+        "description": "Log out and log in again."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that consent modal does not appear because consent for current version is stored."
+      },
+      {
+        "type": "action",
+        "description": "Change GDPR consent version in app config."
+      },
+      {
+        "type": "action",
+        "description": "Login again."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify consent modal appears again requiring new acceptance."
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Medical Report Creation - New Report Success",
+    "description": "Verify doctor can create a new medical report with audio dictation, AI transcription, editing, and successful save.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to new report creation page (/novi-nalaz) and select 'new report' mode."
+      },
+      {
+        "type": "action",
+        "description": "Record audio dictation using the app's recording feature."
+      },
+      {
+        "type": "action",
+        "description": "Submit recording to backend and wait for AI transcription and formatting."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the transcribed medical report is displayed with correct sections."
+      },
+      {
+        "type": "action",
+        "description": "Edit report sections including adding warnings and notes."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm edits persist and auto-save triggers without errors."
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Medical Report Creation - Update Existing Report",
+    "description": "Verify that uploading an existing PDF or Word report allows targeted updates to medical sections without altering administrative data.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to report creation page and select 'update existing report' mode."
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid existing medical report in PDF or Word format."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the report loads with correct data into editable sections."
+      },
+      {
+        "type": "action",
+        "description": "Modify medical report sections only."
+      },
+      {
+        "type": "action",
+        "description": "Save the updated report."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that administrative data remains unchanged and updates are persisted correctly."
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Report Export - PDF Generation",
+    "description": "Ensure that final reports can be exported as properly formatted PDF documents with loading indicators and support concurrent exports.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open any completed medical report in the app."
+      },
+      {
+        "type": "action",
+        "description": "Click export and select PDF format."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that a loading state is shown during export processing."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm the downloaded PDF is correctly formatted and includes all report sections and template formatting."
+      },
+      {
+        "type": "action",
+        "description": "Trigger multiple PDF exports concurrently."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify concurrent exports complete successfully without errors."
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Report Export - Word Document Generation",
+    "description": "Verify that reports export correctly to Word format (.docx) using templates or standard layout.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a report and choose Word export format."
+      },
+      {
+        "type": "action",
+        "description": "Initiate export and wait for completion."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Word document is generated with correct content and formatting."
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Route Protection Middleware for Authenticated Access",
+    "description": "Test that only authenticated users can access protected app pages and unauthenticated users are redirected to login.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Attempt to navigate to a protected route (e.g., /novi-nalaz) without authentication."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm redirection to login page."
+      },
+      {
+        "type": "action",
+        "description": "Login successfully."
+      },
+      {
+        "type": "action",
+        "description": "Attempt to access an auth-only page again."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access is granted to the protected route after login."
+      },
+      {
+        "type": "action",
+        "description": "Try to access login, registration, or reset pages while authenticated."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm redirection away from auth pages to main app."
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "User Settings Page - Profile Management and Preferences",
+    "description": "Verify the user can update their profile information, upload a Word template, change app preferences, and save changes.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to settings page (/postavke)."
+      },
+      {
+        "type": "action",
+        "description": "Update doctor profile fields: name, specialty, clinic."
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid Word report template file."
+      },
+      {
+        "type": "action",
+        "description": "Change app preferences such as auto-copy toggle and export format."
+      },
+      {
+        "type": "action",
+        "description": "Save the updated settings."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updated profile info and preferences are persisted correctly."
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "User Settings Data Export and Deletion",
+    "description": "Test that data export as ZIP functions properly and complete data deletion removes local storage, consent info, and signs out user.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "From settings page, trigger data export as ZIP."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a ZIP file containing user data is downloaded correctly."
+      },
+      {
+        "type": "action",
+        "description": "Initiate data deletion via the delete all data option."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm localStorage and GDPR consent data are cleared."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is signed out from Supabase auth."
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Dashboard Data Accuracy and Display",
+    "description": "Verify that dashboard shows accurate statistics (daily, monthly, total reports, time saved), recent report history, and action cards.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and navigate to dashboard page."
+      },
+      {
+        "type": "assertion",
+        "description": "Check statistics are displayed with correct values matching user data."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recent report history list is populated correctly."
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure quick action cards are visible and responsive."
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Report History - Filtering, Searching, Export and Delete",
+    "description": "Ensure report history page supports date grouping, filtering, searching, export to PDF/Word, and deletion of reports.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to report history page (/historija)."
+      },
+      {
+        "type": "action",
+        "description": "Apply various filters including date ranges and search keywords."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify filtered reports display correctly according to applied criteria."
+      },
+      {
+        "type": "action",
+        "description": "Export a selected report to PDF."
+      },
+      {
+        "type": "action",
+        "description": "Export a selected report to Word."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm both exports generate correctly."
+      },
+      {
+        "type": "action",
+        "description": "Delete a report from history."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the report is removed from history and database."
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Local Storage Persistence and Auto-Clear",
+    "description": "Test that user profile and settings persist locally with encryption and that auto-clear mechanisms and error boundary handle corrupted data gracefully.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in and change profile or settings data."
+      },
+      {
+        "type": "action",
+        "description": "Refresh browser and verify data persists from localStorage."
+      },
+      {
+        "type": "action",
+        "description": "Manually corrupt localStorage data."
+      },
+      {
+        "type": "action",
+        "description": "Reload the app."
+      },
+      {
+        "type": "assertion",
+        "description": "Validate app's error boundaries trigger and corrupted data is cleared automatically."
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "API Integration - Audio Submission Endpoint",
+    "description": "Verify that audio submissions with form data are correctly handled by /api/submit endpoint with valid Supabase session and errors are sanitized.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Record and prepare audio dictation and required form data."
+      },
+      {
+        "type": "action",
+        "description": "Send POST request to /api/submit with valid Supabase session token."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify submission is accepted and forwarded to n8n webhook."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm any error messages returned are sanitized and user-friendly."
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "API Integration - Document Export Endpoint",
+    "description": "Ensure valid POST /api/export requests forward data to n8n endpoint and handle both binary PDF and JSON Word responses correctly with session validation.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Prepare report data payload and Supabase session token."
+      },
+      {
+        "type": "action",
+        "description": "Send export request to /api/export."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response returns correctly formatted binary PDF or JSON Word document."
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Admin Panel Access and Data Display",
+    "description": "Verify that users with admin roles can access the admin panel, see account overviews, usage metrics, and multi-doctor organizational information securely.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login with admin user credentials."
+      },
+      {
+        "type": "action",
+        "description": "Navigate to admin panel."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify account data, usage statistics, and organization details are displayed."
+      },
+      {
+        "type": "action",
+        "description": "Try accessing admin panel with non-admin user."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm access is denied or redirected appropriately."
+      }
+    ]
+  }
+]

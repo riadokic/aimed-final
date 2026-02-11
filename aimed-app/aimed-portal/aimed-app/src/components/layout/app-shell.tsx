@@ -1,0 +1,42 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { Sidebar } from "@/components/layout/sidebar";
+import { PageContainer } from "@/components/layout/page-container";
+import { ConsentGate } from "@/components/gdpr/consent-modal";
+import { ProfileCompletionGate } from "@/components/auth/profile-completion-modal";
+import { useAuth } from "@/components/auth/auth-provider";
+
+const AUTH_PATHS = ["/login", "/registracija", "/reset-password"];
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const { user, loading } = useAuth();
+
+  const isAuthPage = AUTH_PATHS.some((p) => pathname.startsWith(p));
+
+  // Auth pages — render children directly (no sidebar, no consent gate)
+  if (isAuthPage) {
+    return <>{children}</>;
+  }
+
+  // Loading state — show nothing while checking session
+  if (loading) {
+    return null;
+  }
+
+  // Not authenticated — middleware handles redirect, but render nothing as fallback
+  if (!user) {
+    return null;
+  }
+
+  // Authenticated — GDPR consent → profile completion → app
+  return (
+    <ConsentGate>
+      <ProfileCompletionGate>
+        <Sidebar />
+        <PageContainer>{children}</PageContainer>
+      </ProfileCompletionGate>
+    </ConsentGate>
+  );
+}

@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "project": "AIMED Medical Dictation Web App",
+    "date": "2026-02-10",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "AIMED is a web application designed to assist doctors in Bosnia and Herzegovina by enabling them to dictate medical reports via voice. The app automatically transcribes, formats, and prepares these reports for printing or PDF export. It supports new report creation, updating existing reports, and template-based document generation, ensuring GDPR compliance and a polished user experience.",
+  "core_goals": [
+    "Enable doctors to create medical reports via voice dictation with AI transcription and formatting.",
+    "Support secure user authentication and session management with Supabase.",
+    "Allow doctors to update existing reports or use custom templates for report creation.",
+    "Ensure GDPR compliance with explicit consent, no storage of sensitive audio or raw transcripts, and local-first data storage.",
+    "Provide seamless export options including PDF and Word documents, with professional formatting.",
+    "Create a user-friendly and responsive interface with recording, editing, and report management.",
+    "Implement an admin panel and enterprise features for multi-doctor organizations.",
+    "Optimize API communication with backend AI services (Whisper, Claude) and handle error cases gracefully."
+  ],
+  "key_features": [
+    "Email/password and Google OAuth authentication with registration, login, and password reset flows.",
+    "Full GDPR consent gate blocking app access until accepted, with detailed explanation and contact support.",
+    "Dashboard showing report statistics, recent history, and quick action cards.",
+    "Medical report creation page with multiple modes: new report, existing report update (via uploaded PDF/Word), and template-based report creation.",
+    "AI-powered transcription using OpenAI Whisper and formatting with Claude API, including cost optimization via Claude-haiku model.",
+    "Rich report editor with auto-save, contentEditable sections, warning and note rendering, and copy-to-HIS functionality.",
+    "PDF and Word export using client-side html2pdf.js and docxtemplater with concurrent export support and loading states.",
+    "Report history page with filtering, searching, export, and deletion capabilities.",
+    "Settings page for profile management, Word template upload, app preferences, data export, GDPR review, and data deletion with Supabase sign-out.",
+    "Route protection middleware with public and authenticated route handling.",
+    "Admin panel enabling account overview, usage metrics, and multi-doctor organizational support.",
+    "Smart localStorage persistence with auto-clear and error boundary handling."
+  ],
+  "user_flow_summary": [
+    "User registers or logs in via email/password or Google OAuth with validation and confirmation emails.",
+    "Upon first login, user must accept GDPR consent to access the app; consent is version-aware and stored locally.",
+    "User records medical dictation via browser media recorder with visual feedback and timer, then submits audio to backend API.",
+    "AI processes audio and returns structured medical report, which user can review, edit sections, add new fields, and handle notes or warnings.",
+    "User can export the final report as PDF or Word document, or copy text for hospital information system (HIS).",
+    "Users can switch report modes by uploading existing reports for targeted updates or use personal templates set in settings.",
+    "Users manage profile info, upload templates, adjust preferences, export data, review GDPR consent, or delete all data from settings.",
+    "Admin users access an admin panel for managing accounts, organizations, and usage statistics.",
+    "Protected routes ensure only authenticated users access the main app, redirecting others to login or registration as appropriate."
+  ],
+  "validation_criteria": [
+    "Successful registration and login with proper authentication flow and error handling.",
+    "GDPR consent modal blocks app access until explicitly accepted and stores versioned consent state.",
+    "Audio recording, submission, and AI transcription integrate flawlessly with proper error handling and retries.",
+    "Medical reports display correctly with required sections and dynamic additions; editing updates local state with auto-save.",
+    "PDF and Word export generate correctly formatted documents preserving templates or standard layout.",
+    "Existing report updates only modify medical sections as per specification without altering administrative data.",
+    "User data (profiles, settings) persist correctly with encryption in localStorage and Supabase where applicable.",
+    "Route protection middleware enforces authentication and redirects correctly.",
+    "Admin panel loads account data and usage metrics securely with proper role-based access.",
+    "Data deletion removes all local storage, consent data, and signs out user from Supabase properly.",
+    "App UI is responsive, accessible, and polished with smooth state transitions and error boundaries."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "TypeScript",
+      "Next.js 16",
+      "React 19",
+      "Tailwind CSS v4",
+      "Supabase Auth + SSR",
+      "Framer Motion",
+      "html2pdf.js",
+      "docx",
+      "docxtemplater"
+    ],
+    "features": [
+      {
+        "name": "Email/Password Registration",
+        "description": "Registration page at /registracija collecting full name, specialization, clinic name, email, and password. Validates password length (8+ chars) and confirmation match. Sends confirmation email on success. Bridges profile data to localStorage.",
+        "files": [
+          "src/app/(auth)/registracija/page.tsx",
+          "src/lib/supabase/client.ts",
+          "src/lib/report-storage.ts"
+        ]
+      },
+      {
+        "name": "Email/Password Login",
+        "description": "Login page at /login with email and password fields. Shows error messages for invalid credentials. Links to registration and password reset pages.",
+        "files": [
+          "src/app/(auth)/login/page.tsx",
+          "src/lib/supabase/client.ts"
+        ]
+      },
+      {
+        "name": "Google OAuth Authentication",
+        "description": "Google sign-in button on login and registration pages. Initiates OAuth flow with PKCE, redirects to /auth/callback which exchanges code for session. Uses access_type=offline and prompt=consent.",
+        "files": [
+          "src/components/auth/google-button.tsx",
+          "src/components/auth/auth-provider.tsx",
+          "src/app/auth/callback/route.ts"
+        ]
+      },
+      {
+        "name": "Password Reset",
+        "description": "Password reset page at /reset-password. Sends reset email via Supabase auth. Shows success confirmation.",
+        "files": [
+          "src/app/(auth)/reset-password/page.tsx",
+          "src/lib/supabase/client.ts"
+        ]
+      },
+      {
+        "name": "Auth Provider & Session Management",
+        "description": "React context providing user state, loading flag, signOut, and signInWithGoogle. Listens for auth state changes via onAuthStateChange. Wraps entire app.",
+        "files": [
+          "src/components/auth/auth-provider.tsx",
+          "src/app/layout.tsx"
+        ]
+      },
+      {
+        "name": "Route Protection Middleware",
+        "description": "Next.js middleware that protects routes. Public paths: /login, /registracija, /reset-password. Redirects unauthenticated users to /login, authenticated users away from auth pages.",
+        "files": [
+          "middleware.ts",
+          "src/lib/supabase/middleware.ts"
+        ]
+      },
+      {
+        "name": "GDPR Consent Gate",
+        "description": "Full-screen blocking consent modal shown after login. Version-aware (v1.0). Must accept before accessing app. Explains data processing (Whisper, Claude, local storage). Decline shows contact info.",
+        "files": [
+          "src/components/gdpr/consent-modal.tsx",
+          "src/lib/gdpr.ts"
+        ]
+      },
+      {
+        "name": "Settings Page",
+        "description": "Settings at /postavke with doctor profile (name, specialty, clinic), Word template upload, app preferences (auto-copy, export format), data export as ZIP, history clearing, GDPR consent review, and complete data deletion with Supabase sign-out.",
+        "files": [
+          "src/app/postavke/page.tsx",
+          "src/lib/report-storage.ts",
+          "src/lib/gdpr.ts"
+        ]
+      },
+      {
+        "name": "Dashboard",
+        "description": "Home page showing stats (daily/monthly/total reports, time saved), recent report history, and quick-action cards.",
+        "files": [
+          "src/app/page.tsx",
+          "src/lib/report-storage.ts",
+          "src/lib/analytics.ts"
+        ]
+      },
+      {
+        "name": "Medical Report Creation (Novi Nalaz)",
+        "description": "Report creation at /novi-nalaz with mode selector (new/update), file upload for updates, audio recording with waveform visualization, AI transcription, section editing, patient data entry, and export.",
+        "files": [
+          "src/app/novi-nalaz/page.tsx",
+          "src/components/recording/dictation-flow.tsx",
+          "src/components/recording/live-waveform.tsx",
+          "src/hooks/use-audio-recorder.ts",
+          "src/hooks/use-aimed-api.ts"
+        ]
+      },
+      {
+        "name": "Report History",
+        "description": "History at /historija with date grouping, search filtering, period filters, export to PDF/Word, and delete functionality.",
+        "files": [
+          "src/app/historija/page.tsx",
+          "src/lib/report-storage.ts"
+        ]
+      },
+      {
+        "name": "Document Export (PDF/Word)",
+        "description": "PDF generation via html2pdf.js and Word via docx/docxtemplater. Supports template-based and programmatic generation. Concurrent exports with loading states.",
+        "files": [
+          "src/hooks/use-aimed-export.ts",
+          "src/lib/pdf-generator.ts",
+          "src/lib/word-generator.ts"
+        ]
+      },
+      {
+        "name": "API Route - Submit",
+        "description": "POST /api/submit receives audio + form data, verifies Supabase session, forwards to n8n webhook with Bearer token, sanitizes errors.",
+        "files": [
+          "src/app/api/submit/route.ts",
+          "src/services/aimed-api.ts"
+        ]
+      },
+      {
+        "name": "API Route - Export",
+        "description": "POST /api/export receives report data, verifies Supabase session, forwards to n8n for document generation, handles binary (PDF) and JSON (Word) responses.",
+        "files": [
+          "src/app/api/export/route.ts"
+        ]
+      },
+      {
+        "name": "App Shell & Layout",
+        "description": "Conditional layout: auth pages render without sidebar, authenticated pages get sidebar + consent gate. Responsive sidebar with mobile drawer.",
+        "files": [
+          "src/components/layout/app-shell.tsx",
+          "src/components/layout/sidebar.tsx",
+          "src/components/layout/header.tsx",
+          "src/components/layout/page-container.tsx"
+        ]
+      },
+      {
+        "name": "Supabase Database Integration",
+        "description": "Profiles and doctor_settings tables with RLS policies. Auto-profile creation trigger on signup. TypeScript types generated from schema.",
+        "files": [
+          "src/types/supabase.ts",
+          "src/lib/supabase/client.ts",
+          "src/lib/supabase/server.ts"
+        ]
+      }
+    ]
+  }
+}
