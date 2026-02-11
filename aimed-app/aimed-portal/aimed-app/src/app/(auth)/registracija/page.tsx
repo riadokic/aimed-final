@@ -77,7 +77,7 @@ export default function RegistracijaPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
               <span className="text-sm font-bold text-white">A</span>
             </div>
-            <span className="text-xl font-semibold text-aimed-black tracking-tight">AIMED</span>
+            <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
           </div>
         </div>
         <div className="rounded-2xl border border-aimed-gray-200 bg-aimed-white p-6 sm:p-8 shadow-sm text-center">
@@ -119,7 +119,7 @@ export default function RegistracijaPage() {
       <div className="rounded-2xl border border-aimed-gray-200 bg-aimed-white p-6 sm:p-8 shadow-sm">
         <h1 className="text-base font-semibold text-aimed-black mb-1">Registracija</h1>
         <p className="text-xs text-aimed-gray-400 mb-6">
-          Kreirajte svoj AIMED račun
+          Kreirajte svoj AiMED račun
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

@@ -103,7 +103,7 @@ export function ProfileCompletionGate({ children }: { children: React.ReactNode 
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
               <span className="text-sm font-bold text-white">A</span>
             </div>
-            <span className="text-xl font-semibold text-aimed-black tracking-tight">AIMED</span>
+            <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
           </div>
         </div>
 

@@ -7,16 +7,18 @@ import { ConsentGate } from "@/components/gdpr/consent-modal";
 import { ProfileCompletionGate } from "@/components/auth/profile-completion-modal";
 import { useAuth } from "@/components/auth/auth-provider";
 
-const AUTH_PATHS = ["/login", "/registracija", "/reset-password"];
+const PUBLIC_PATHS = ["/login", "/registracija", "/reset-password"];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, loading } = useAuth();
 
-  const isAuthPage = AUTH_PATHS.some((p) => pathname.startsWith(p));
+  const isPublicPage =
+    pathname === "/" ||
+    PUBLIC_PATHS.some((p) => pathname.startsWith(p));
 
-  // Auth pages — render children directly (no sidebar, no consent gate)
-  if (isAuthPage) {
+  // Public pages (landing, auth) — render children directly (no sidebar, no consent gate)
+  if (isPublicPage) {
     return <>{children}</>;
   }
 

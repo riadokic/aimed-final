@@ -31,9 +31,9 @@ export async function updateSession(request: NextRequest) {
 
   // Public routes that don't require auth
   const publicPaths = ["/login", "/registracija", "/reset-password"];
-  const isPublicPath = publicPaths.some((p) =>
-    request.nextUrl.pathname.startsWith(p)
-  );
+  const isPublicPath =
+    request.nextUrl.pathname === "/" ||
+    publicPaths.some((p) => request.nextUrl.pathname.startsWith(p));
 
   if (!user && !isPublicPath) {
     const url = request.nextUrl.clone();
@@ -41,10 +41,10 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Redirect logged-in users away from auth pages
+  // Redirect logged-in users: landing → /dashboard, auth pages → /dashboard
   if (user && isPublicPath) {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   }
 

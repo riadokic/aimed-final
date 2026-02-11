@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/auth/auth-provider";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: DashboardIcon },
+  { name: "Dashboard", href: "/dashboard", icon: DashboardIcon },
   { name: "Novi nalaz", href: "/novi-nalaz", icon: MicrophoneIcon },
   { name: "Historija nalaza", href: "/historija", icon: ClockIcon },
 ];
@@ -52,11 +52,11 @@ export function Sidebar() {
         >
           <HamburgerIcon className="h-5 w-5 text-aimed-black" />
         </button>
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/dashboard" className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-aimed-black">
             <span className="text-xs font-bold text-white">A</span>
           </div>
-          <span className="text-sm font-semibold text-aimed-black tracking-tight">AIMED</span>
+          <span className="text-sm font-semibold text-aimed-black tracking-tight">AiMED</span>
         </Link>
       </div>
 
@@ -78,11 +78,11 @@ export function Sidebar() {
       >
         {/* Logo — clickable, navigates to Dashboard */}
         <div className="flex h-[72px] items-center justify-between border-b border-aimed-gray-200 px-5">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/dashboard" className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-aimed-black">
               <span className="text-xs font-bold text-white">A</span>
             </div>
-            <span className="text-base font-semibold text-aimed-black tracking-tight">AIMED</span>
+            <span className="text-base font-semibold text-aimed-black tracking-tight">AiMED</span>
           </Link>
           {/* Close button — mobile only */}
           <button
@@ -97,7 +97,7 @@ export function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 space-y-1 px-3 py-4">
           {navigation.map((item) => {
-            const isActive = item.href === "/" ? pathname === "/" : pathname === item.href;
+            const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}

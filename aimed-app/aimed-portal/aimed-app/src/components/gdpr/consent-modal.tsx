@@ -36,7 +36,7 @@ export function ConsentGate({ children }: { children: React.ReactNode }) {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
               <span className="text-sm font-bold text-white">A</span>
             </div>
-            <span className="text-xl font-semibold text-aimed-black tracking-tight">AIMED</span>
+            <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
           </div>
         </div>
 
@@ -45,7 +45,7 @@ export function ConsentGate({ children }: { children: React.ReactNode }) {
             Zaštita Vaših Podataka
           </h1>
           <p className="text-xs text-aimed-gray-400 mb-6">
-            Prije korištenja AIMED aplikacije, molimo da pročitate kako obrađujemo Vaše podatke.
+            Prije korištenja AiMED aplikacije, molimo da pročitate kako obrađujemo Vaše podatke.
           </p>
 
           {showDeclined ? (
@@ -57,7 +57,7 @@ export function ConsentGate({ children }: { children: React.ReactNode }) {
                 Saglasnost je potrebna
               </p>
               <p className="text-xs text-aimed-gray-400 mb-6 max-w-sm mx-auto">
-                Bez Vaše saglasnosti nije moguće koristiti AIMED.
+                Bez Vaše saglasnosti nije moguće koristiti AiMED.
                 Ako imate pitanja o zaštiti podataka, kontaktirajte
                 nas na: info@cee-med.com
               </p>
@@ -72,7 +72,7 @@ export function ConsentGate({ children }: { children: React.ReactNode }) {
             <>
               <div className="space-y-4 mb-6">
                 <ConsentSection
-                  title="Kako AIMED funkcioniše"
+                  title="Kako AiMED funkcioniše"
                   items={[
                     "Transkripcija govora u tekst",
                     "Formatiranje teksta u medicinski nalaz",

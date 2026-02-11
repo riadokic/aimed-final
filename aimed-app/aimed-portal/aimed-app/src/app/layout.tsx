@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AIMED — AI Medicinska Diktacija",
+  title: "AiMED — AI Medicinska Diktacija",
   description: "Kreirajte medicinske nalaze glasovnom diktacijom",
 };
 
