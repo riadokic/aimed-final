@@ -56,7 +56,7 @@ const Hero: React.FC<HeroProps> = ({ onDemoClick }) => {
         </div>
 
         <div className="space-y-6">
-          <h1 className="text-7xl md:text-9xl font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
+          <h1 className="text-[105px] md:text-[192px] font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
             Vi diktirate, <br />
             <span className="text-zinc-300">AIMED piše</span>
           </h1>
@@ -69,7 +69,7 @@ const Hero: React.FC<HeroProps> = ({ onDemoClick }) => {
           <div className="flex flex-col sm:flex-row items-start justify-center gap-8">
             {/* Left Column: Započni besplatno + GDPR */}
             <div className="flex flex-col items-center gap-4">
-              <button 
+              <button
                 onClick={onDemoClick}
                 className="bg-black text-white w-[240px] py-4 rounded-2xl text-[16px] font-bold hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 group shadow-2xl shadow-zinc-200/50"
               >
@@ -84,7 +84,7 @@ const Hero: React.FC<HeroProps> = ({ onDemoClick }) => {
 
             {/* Right Column: Pogledaj demo + ZZLP */}
             <div className="flex flex-col items-center gap-4">
-              <button 
+              <button
                 onClick={onDemoClick}
                 className="bg-white text-black w-[240px] py-4 rounded-2xl text-[16px] font-bold border border-zinc-200 hover:bg-zinc-50 transition-all flex items-center justify-center gap-2 shadow-sm"
               >

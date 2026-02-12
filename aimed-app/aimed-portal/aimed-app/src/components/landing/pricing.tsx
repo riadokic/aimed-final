@@ -46,7 +46,7 @@ export default function Pricing() {
           <h2 className="text-4xl md:text-6xl font-bold text-black tracking-tighter leading-[1.05]">
             Započnite 14-dnevni <br /> besplatni probni period.
           </h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+          <div className="flex items-center justify-center pt-6">
             <Link
               href="/registracija"
               className="bg-black text-white px-8 py-4 rounded-xl text-[15px] font-semibold hover:bg-zinc-800 transition-all flex items-center gap-2 group shadow-xl shadow-zinc-200/50"
@@ -54,15 +54,6 @@ export default function Pricing() {
               Probaj besplatno
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <button
-              onClick={() => {
-                const el = document.getElementById("plan-cards");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-              className="px-8 py-4 rounded-xl text-[15px] font-semibold text-black border border-zinc-200 hover:bg-zinc-50 transition-all"
-            >
-              Pogledaj sve planove
-            </button>
           </div>
         </div>
 

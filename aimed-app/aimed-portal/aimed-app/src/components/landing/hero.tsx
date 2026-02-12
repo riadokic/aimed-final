@@ -5,7 +5,7 @@ import { ArrowRight, ShieldCheck, Mic, FileText, LogIn } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-24 pb-14 md:pt-48 md:pb-32 px-6 overflow-hidden radial-glow">
+    <section className="relative pt-36 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden radial-glow">
       {/* Side Decorative Portal Hints */}
       <div className="absolute inset-0 pointer-events-none hidden lg:block">
         {/* Left Hint - Audio In Activity */}
@@ -57,7 +57,7 @@ export default function Hero() {
         </div>
 
         <div className="space-y-3 md:space-y-6">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
             Vi diktirate, <br />
             <span className="text-zinc-300">AiMED piše.</span>
           </h1>
