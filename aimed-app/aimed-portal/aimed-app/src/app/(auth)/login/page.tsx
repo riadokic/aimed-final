@@ -42,12 +42,12 @@ export default function LoginPage() {
     <div className="w-full max-w-sm">
       {/* Logo */}
       <div className="mb-8 flex justify-center">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
             <span className="text-sm font-bold text-white">A</span>
           </div>
           <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
-        </div>
+        </Link>
       </div>
 
       <div className="rounded-2xl border border-aimed-gray-200 bg-aimed-white p-6 sm:p-8 shadow-sm">
