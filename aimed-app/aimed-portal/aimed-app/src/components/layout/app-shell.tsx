@@ -3,11 +3,10 @@
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 import { PageContainer } from "@/components/layout/page-container";
-import { ConsentGate } from "@/components/gdpr/consent-modal";
 import { ProfileCompletionGate } from "@/components/auth/profile-completion-modal";
 import { useAuth } from "@/components/auth/auth-provider";
 
-const PUBLIC_PATHS = ["/login", "/registracija", "/reset-password"];
+const PUBLIC_PATHS = ["/login", "/registracija", "/reset-password", "/politika-privatnosti", "/uslovi-koristenja", "/gdpr-sigurnost"];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -32,13 +31,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return null;
   }
 
-  // Authenticated — GDPR consent → profile completion → app
+  // Authenticated — profile completion → app
   return (
-    <ConsentGate>
-      <ProfileCompletionGate>
-        <Sidebar />
-        <PageContainer>{children}</PageContainer>
-      </ProfileCompletionGate>
-    </ConsentGate>
+    <ProfileCompletionGate>
+      <Sidebar />
+      <PageContainer>{children}</PageContainer>
+    </ProfileCompletionGate>
   );
 }

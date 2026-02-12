@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
 
@@ -52,18 +54,19 @@ export default function Pricing() {
               Probaj besplatno
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a
-              href="https://cal.eu/aimed/30min"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => {
+                const el = document.getElementById("plan-cards");
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
               className="px-8 py-4 rounded-xl text-[15px] font-semibold text-black border border-zinc-200 hover:bg-zinc-50 transition-all"
             >
               Pogledaj sve planove
-            </a>
+            </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div id="plan-cards" className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           {plans.map((plan, idx) => (
             <div
               key={idx}

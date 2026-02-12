@@ -40,7 +40,7 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Define public paths
-  const publicPaths = ["/login", "/registracija", "/reset-password"];
+  const publicPaths = ["/login", "/registracija", "/reset-password", "/politika-privatnosti", "/uslovi-koristenja", "/gdpr-sigurnost"];
   const isPublicPath =
     request.nextUrl.pathname === "/" ||
     publicPaths.some((path) => request.nextUrl.pathname.startsWith(path));

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-const WEBHOOK_URL = process.env.NEXT_PUBLIC_AIMED_Transcribe_WEBHOOK_URL;
+const WEBHOOK_URL = process.env.AIMED_Transcribe_WEBHOOK_URL;
 const TIMEOUT_MS = 60_000;
 
 export async function POST(request: NextRequest) {

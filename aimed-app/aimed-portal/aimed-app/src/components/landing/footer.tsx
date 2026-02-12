@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Stethoscope, Linkedin, Instagram } from "lucide-react";
 
 function scrollToSection(id: string) {
@@ -35,12 +36,14 @@ export default function AppFooter() {
             </h4>
             <ul className="space-y-4 text-sm text-zinc-400 font-medium">
               <li>
-                <button
-                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                <a
+                  href="https://cee-med.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   O nama
-                </button>
+                </a>
               </li>
               <li>
                 <a
@@ -83,12 +86,12 @@ export default function AppFooter() {
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("features")}
+                <Link
+                  href="/gdpr-sigurnost"
                   className="hover:text-white transition-colors"
                 >
                   GDPR sigurnost
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -123,15 +126,12 @@ export default function AppFooter() {
             © 2026 AiMED | AI Medical Dictation. Sva prava zadržana.
           </p>
           <div className="flex gap-8 text-[12px] font-medium text-zinc-500">
-            <button className="hover:text-white transition-colors">
+            <Link href="/politika-privatnosti" className="hover:text-white transition-colors">
               Politika privatnosti
-            </button>
-            <button className="hover:text-white transition-colors">
+            </Link>
+            <Link href="/uslovi-koristenja" className="hover:text-white transition-colors">
               Uslovi korištenja
-            </button>
-            <button className="hover:text-white transition-colors">
-              GDPR saglasnost
-            </button>
+            </Link>
           </div>
         </div>
       </div>

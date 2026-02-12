@@ -5,7 +5,7 @@ import { ArrowRight, ShieldCheck, Mic, FileText, LogIn } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-48 pb-32 px-6 overflow-hidden radial-glow">
+    <section className="relative pt-24 pb-14 md:pt-48 md:pb-32 px-6 overflow-hidden radial-glow">
       {/* Side Decorative Portal Hints */}
       <div className="absolute inset-0 pointer-events-none hidden lg:block">
         {/* Left Hint - Audio In Activity */}
@@ -47,21 +47,21 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
+      <div className="max-w-4xl mx-auto text-center space-y-8 md:space-y-12 relative z-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 bg-white shadow-sm animate-reveal">
           <span className="flex h-2 w-2 rounded-full bg-blue-500"></span>
-          <span className="text-[12px] font-semibold text-zinc-600 uppercase tracking-widest">
+          <span className="text-[8px] md:text-[12px] font-semibold text-zinc-600 uppercase tracking-widest">
             Inteligentna medicinska dokumentacija
           </span>
           <ArrowRight className="w-3 h-3 text-zinc-400" />
         </div>
 
-        <div className="space-y-6">
-          <h1 className="text-7xl md:text-9xl font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
+        <div className="space-y-3 md:space-y-6">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
             Vi diktirate, <br />
             <span className="text-zinc-300">AiMED piše.</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-xl md:text-2xl text-zinc-500 font-normal leading-relaxed animate-reveal [animation-delay:200ms]">
+          <p className="max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-zinc-500 font-normal leading-relaxed animate-reveal [animation-delay:200ms]">
             Bez komplikovanih IT integracija. Vaš diktat postaje savršen
             medicinski izvještaj za manje od 60 sekundi.
           </p>
