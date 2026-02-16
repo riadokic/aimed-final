@@ -59,7 +59,7 @@ export default function Navbar() {
       links: [
         { label: "Kako radi?", sectionId: "features" },
         { label: "Integracije", sectionId: "integration" },
-        { label: "Iskustva kolega", sectionId: "testimonials" },
+        { label: "O nama", sectionId: "about" },
       ],
     },
     {
@@ -68,8 +68,6 @@ export default function Navbar() {
         { label: "Česta pitanja", sectionId: "faq" },
         { label: "Cjenovnik", sectionId: "pricing" },
         { label: "GDPR sigurnost", href: "/gdpr-sigurnost" },
-        { label: "Politika privatnosti", href: "/politika-privatnosti" },
-        { label: "Uslovi korištenja", href: "/uslovi-koristenja" },
       ],
     },
   ];
@@ -144,15 +142,13 @@ export default function Navbar() {
             >
               Prijava
             </Link>
-            <a
-              href="https://cal.eu/aimed/30min"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/registracija"
               className="bg-black text-white px-5 py-2.5 rounded-xl text-[13px] font-semibold hover:bg-zinc-800 transition-all flex items-center gap-2 group"
             >
-              Zakaži Demo
+              Registracija
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </a>
+            </Link>
           </div>
 
           {/* Mobile hamburger button */}

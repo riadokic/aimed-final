@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Stethoscope, Linkedin, Instagram } from "lucide-react";
+import { Stethoscope } from "lucide-react";
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -96,29 +96,6 @@ export default function AppFooter() {
             </ul>
           </div>
 
-          <div className="md:col-span-4 space-y-8">
-            <h4 className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">
-              Pratite nas
-            </h4>
-            <div className="flex gap-4">
-              <a
-                href="https://linkedin.com/company/aimed"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center hover:bg-white hover:text-black transition-all"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="https://instagram.com/aimed"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center hover:bg-white hover:text-black transition-all"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="pt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8">

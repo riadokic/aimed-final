@@ -124,7 +124,7 @@ export default function RegistracijaPage() {
     "w-full rounded-lg border border-aimed-gray-200 px-3 py-2.5 text-sm text-aimed-black placeholder:text-aimed-gray-400 outline-none transition-colors duration-200 focus:border-aimed-black";
 
   return (
-    <>
+    <div className="w-full max-w-sm">
       {/* Back button */}
       <div className="mb-4">
         <Link
@@ -143,7 +143,7 @@ export default function RegistracijaPage() {
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
             <span className="text-sm font-bold text-white">A</span>
           </div>
-          <span className="text-xl font-semibold text-aimed-black tracking-tight">AIMED</span>
+          <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
         </Link>
       </div>
 
@@ -306,7 +306,7 @@ export default function RegistracijaPage() {
           </Link>
         </p>
       </div>
-    </>
+    </div>
   );
 }
 

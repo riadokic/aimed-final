@@ -5,7 +5,7 @@ import { ArrowRight, ShieldCheck, Mic, FileText, LogIn } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-12 md:pt-56 md:pb-32 px-6 overflow-hidden radial-glow">
+    <section className="relative pt-32 pb-12 md:pt-56 md:pb-32 px-6 overflow-hidden radial-glow selection:bg-black selection:text-white">
       {/* Side Decorative Portal Hints */}
       <div className="absolute inset-0 pointer-events-none hidden lg:block">
         {/* Left Hint - Audio In Activity */}
@@ -48,18 +48,18 @@ export default function Hero() {
       </div>
 
       <div className="max-w-4xl mx-auto text-center space-y-8 md:space-y-12 relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 bg-white shadow-sm animate-reveal">
-          <span className="flex h-2 w-2 rounded-full bg-blue-500"></span>
-          <span className="text-[8px] md:text-[12px] font-semibold text-zinc-600 uppercase tracking-widest">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 bg-white shadow-sm animate-reveal max-w-full overflow-hidden">
+          <span className="flex h-2 w-2 rounded-full bg-blue-500 shrink-0"></span>
+          <span className="text-[9px] md:text-[12px] font-semibold text-zinc-600 uppercase tracking-widest truncate">
             Inteligentna medicinska dokumentacija
           </span>
-          <ArrowRight className="w-3 h-3 text-zinc-400" />
+          <ArrowRight className="w-3 h-3 text-zinc-400 shrink-0" />
         </div>
 
         <div className="space-y-3 md:space-y-6">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms] break-words">
             Vi diktirate, <br />
-            <span className="text-zinc-300">AIMED piše</span>
+            <span className="text-zinc-300">AiMED piše.</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-zinc-500 font-normal leading-relaxed animate-reveal [animation-delay:200ms]">
             Bez komplikovanih IT integracija. Vaš diktat postaje savršen

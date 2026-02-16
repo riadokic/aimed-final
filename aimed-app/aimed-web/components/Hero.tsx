@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
         <div className="space-y-6">
           <h1 className="text-[105px] md:text-[192px] font-bold tracking-tighter text-black leading-[0.95] animate-reveal [animation-delay:100ms]">
             Vi diktirate, <br />
-            <span className="text-zinc-300">AIMED piše.</span>
+            <span className="text-zinc-300">AiMED piše.</span>
           </h1>
           <p className="max-w-2xl mx-auto text-xl md:text-2xl text-zinc-500 font-normal leading-relaxed animate-reveal [animation-delay:200ms]">
             Bez komplikovanih IT integracija. Vaš diktat postaje savršen medicinski izvještaj za manje od 60 sekundi.
