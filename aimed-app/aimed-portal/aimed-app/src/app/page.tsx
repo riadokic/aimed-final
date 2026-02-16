@@ -11,7 +11,7 @@ import AppFooter from "@/components/landing/footer";
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-dvh selection:bg-zinc-100 selection:text-zinc-900 bg-white overflow-y-auto">
+    <div className="relative selection:bg-zinc-100 selection:text-zinc-900 bg-white">
       {/* Background Dot Grid */}
       <div className="fixed inset-0 bg-dot-grid pointer-events-none z-0 opacity-100" />
 
