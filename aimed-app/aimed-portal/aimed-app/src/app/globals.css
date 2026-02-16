@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Grayscale — 95% of the interface */
+  --color-aimed-black: #1a1a1a;
+  --color-aimed-gray-900: #2d2d2d;
+  --color-aimed-gray-700: #4b5563;
+  --color-aimed-gray-500: #6b7280;
+  --color-aimed-gray-400: #9ca3af;
+  --color-aimed-gray-200: #e5e7eb;
+  --color-aimed-gray-100: #f3f4f6;
+  --color-aimed-gray-50: #f9fafb;
+  --color-aimed-white: #ffffff;
+
+  /* Status — sparingly, only for meaning */
+  --color-aimed-red: #dc2626;
+  --color-aimed-red-light: #fef2f2;
+  --color-aimed-green: #16a34a;
+  --color-aimed-green-light: #f0fdf4;
+  --color-aimed-amber: #d97706;
+  --color-aimed-amber-light: #fffbeb;
+  --color-aimed-blue: #2563eb;
+  --color-aimed-blue-light: #dbeafe;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  background: var(--color-aimed-gray-50);
+  color: var(--color-aimed-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Recording red dot glow */
+@keyframes recording-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+}
+.animate-recording-glow {
+  animation: recording-glow 2s ease-in-out infinite;
+}
+
+/* Skeleton pulse */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-skeleton {
+  animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Waveform bars */
+@keyframes wave {
+  0% { height: 8px; }
+  100% { height: 48px; }
+}
+
+/* Focus mode: unfocused cards */
+.focus-mode-blur {
+  opacity: 0.5;
+  transition: opacity 300ms ease;
+}
+.focus-mode-active {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+/* ─── Landing page animations ─── */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e4e4e7;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4d4d8;
+}
+
+/* Hero float */
+@keyframes float-hero {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-20px) rotate(-3deg); }
+}
+@keyframes float-hero-right {
+  0%, 100% { transform: translateY(0px) rotate(2deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+@keyframes progress-bar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+@keyframes loading-bar {
+  0% { width: 0%; }
+  50% { width: 100%; }
+  100% { width: 0%; }
+}
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+.animate-float-hero {
+  animation: float-hero 6s ease-in-out infinite;
+}
+.animate-float-hero:hover {
+  animation-play-state: paused;
+}
+.animate-float-hero-delayed {
+  animation: float-hero-right 6s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+.animate-float-hero-delayed:hover {
+  animation-play-state: paused;
+}
+.animate-progress-bar {
+  animation: progress-bar 12s ease-in-out infinite;
+}
+.animate-loading-bar {
+  animation: loading-bar 6s ease-in-out infinite;
+}
+.animate-reveal {
+  animation: reveal 0.6s ease-out both;
+}
+.animate-marquee {
+  animation: marquee linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Dot grid background for landing */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, #e4e4e7 1px, transparent 1px);
+  background-size: 24px 24px;
+}

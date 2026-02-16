@@ -1,0 +1,23 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "aimed-app",
+    "projectPath": "/Users/riadokic/Desktop/aimed-portal/aimed-app",
+    "testIds": [
+      "TC003",
+      "TC004",
+      "TC005",
+      "TC006",
+      "TC012"
+    ],
+    "additionalInstruction": "Focus on these 5 specific authentication test scenarios:\n\n1. TC023 Session Persistence After Hard Refresh: Login with testuser@aimed-test.com / TestPass123!, accept GDPR consent (click \"Prihvatam\" button), then hard refresh the page (F5/reload). Verify the dashboard is still visible and user is NOT redirected to login.\n\n2. TC024 Deep Linking Redirect After Login: Navigate directly to /postavke without being logged in. Verify redirect to /login. Then login with testuser@aimed-test.com / TestPass123!. After login, verify redirect back to /postavke (or at least to the app dashboard).\n\n3. TC025 Multi Tab Logout Synchronization: This tests cross-tab session invalidation. Login in one tab, then open a second tab. Logout in the first tab. Navigate in the second tab and verify it redirects to login or shows signed-out state.\n\n4. TC026 Google OAuth Entry Point Check: Navigate to /login. Locate the Google Login button (text contains \"Google\"). Click it. Verify it initiates redirect to a Supabase/Google auth URL (the URL should contain accounts.google.com or supabase auth endpoint).\n\n5. TC027 Registration Duplicate Email Validation: Navigate to /registracija. Fill in the form with email testuser@aimed-test.com (already registered), name \"Test Duplicate\", specialization \"Test\", clinic \"Test\", password \"TestPass123!\" and confirm password. Submit the form. Verify an error message is displayed about the email already being registered.\n\nTest credentials: testuser@aimed-test.com / TestPass123!\nApp runs on http://localhost:3000\nLogin page: /login\nRegistration page: /registracija\nGDPR consent button text: \"Prihvatam\"",
+    "envs": {
+      "API_KEY": "sk-user-rTDKaqUq6hKqW9WMfUmlbR2-LdV6m6_zZAq8n1Ts3hw0X4_ZL9n2vw7WAwDw_729OfMAIuC9TRNHfSy1qBmfpGBaUR9gjdZIVWAvAGbMEAMoYhsut4jR2pPX_C5CkqFq14Y"
+    }
+  },
+  "serverPort": 54654,
+  "proxy": "http://4f5f41a7-9cff-4530-b6e2-682d217940e1:gUaaaKsw0rANyQfm5nFcQtHU9qnPVIi5@tun.testsprite.com:8080"
+}

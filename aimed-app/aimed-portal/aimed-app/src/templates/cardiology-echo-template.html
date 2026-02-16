@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; font-size: 11px; margin: 20px 40px; color: #000; }
+    .header { text-align: center; margin-bottom: 10px; }
+    .header h1 { font-size: 18px; margin: 0; letter-spacing: 2px; }
+    .header p { font-size: 10px; margin: 2px 0; }
+    .doc-info { font-size: 11px; margin: 4px 0; }
+    .title-box { border: 1px solid #000; display: inline-block; padding: 2px 12px; font-weight: bold; font-size: 13px; margin: 10px 0; }
+    .meta-row { display: flex; justify-content: space-between; margin: 6px 0; font-size: 11px; }
+    .patient-row { font-size: 12px; font-weight: bold; margin: 6px 0; }
+    .section-title { font-weight: bold; font-size: 11px; margin: 10px 0 4px 0; text-decoration: underline; }
+    table.dims { border-collapse: collapse; width: 100%; margin: 4px 0; }
+    table.dims td { padding: 2px 6px; font-size: 11px; vertical-align: top; }
+    table.dopler { border-collapse: collapse; width: 100%; margin: 6px 0; font-size: 10px; }
+    table.dopler th, table.dopler td { border: 1px solid #000; padding: 2px 4px; text-align: center; }
+    table.dopler th { font-weight: bold; font-size: 9px; }
+    .nalaz { margin-top: 12px; font-size: 11px; line-height: 1.5; text-align: justify; }
+    .nalaz-title { font-weight: bold; text-decoration: underline; }
+    .footer { margin-top: 20px; display: flex; justify-content: space-between; font-size: 10px; }
+    .footer-left { text-align: center; }
+    .footer-right { text-align: center; }
+    .signature { font-weight: bold; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>INTERNISTIČKA ORDINACIJA</h1>
+    <p class="doc-info">Prof. dr {{doktor_ime}}, {{doktor_specijalnost}}</p>
+    <p>{{adresa_ordinacije}} &bull; Tel. {{telefon_ordinacije}} &bull; e-mail: {{email_ordinacije}}</p>
+  </div>
+
+  <!-- DOCUMENT TYPE -->
+  <div class="title-box">EHOKARDIOGRAM</div>
+
+  <!-- META -->
+  <div class="meta-row">
+    <span>Datum: {{datum_pregleda}}</span>
+    <span>Br. protokola {{broj_protokola}}</span>
+  </div>
+  <div class="patient-row">
+    Prezime i ime: {{pacijent_ime}}, {{godina_rodjenja}} &nbsp;&nbsp; tel {{telefon_pacijenta}}
+  </div>
+
+  <!-- A) DIMENZIJE -->
+  <div class="section-title">A) DIMENZIJE (cm)</div>
+  <table class="dims">
+    <tr>
+      <td>DA {{DA}}</td>
+      <td>x {{DA_y}}</td>
+      <td>EDD {{EDD}}</td>
+      <td>EDV</td>
+      <td>LA {{LA}}</td>
+      <td>x {{LA_y}}</td>
+    </tr>
+    <tr>
+      <td>Obruč TZ</td>
+      <td></td>
+      <td>ESD</td>
+      <td>ES</td>
+      <td>obruč MZ</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>DV {{DV}}</td>
+      <td></td>
+      <td>FS {{FS}} %</td>
+      <td>UV</td>
+      <td>Ao (bulb) {{Ao_bulb}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>PA</td>
+      <td></td>
+      <td>IVS {{IVS}}</td>
+      <td>LVEF {{LVEF}} %</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>LVPW {{LVPW}}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!-- B) VALVULE I PERIKARD -->
+  <div class="section-title">B) VALVULE I PERIKARD</div>
+  <p>
+    <strong>Aortna valvula</strong> {{aortna_valvula}}<br>
+    <strong>Mitralna valvula</strong> {{mitralna_valvula}}<br>
+    <strong>Trikuspidalna valvula</strong> {{trikuspidalna_valvula}}<br>
+    <strong>Pulmonalna valvula</strong> {{pulmonalna_valvula}}<br>
+    <strong>Perikard</strong> {{perikard}}
+  </p>
+
+  <!-- C) DOPLER -->
+  <div class="section-title">C) DOPLER (LPRF, HPRF, CW, COLOR)</div>
+  <table class="dopler">
+    <thead>
+      <tr>
+        <th>VALVULA<br>ŠUPLJINA<br>K. SUD.</th>
+        <th>REGURG.<br>(1,2,3)</th>
+        <th>V max.<br>(m/s.)</th>
+        <th>dP max.<br>(mm Hg)</th>
+        <th>dP<br>(mm Hg)</th>
+        <th>VTI<br>(cm)</th>
+        <th colspan="2">SPEC.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AZ</td>
+        <td>{{AZ_regurg}}</td>
+        <td>{{AZ_vmax}}</td>
+        <td>{{AZ_dp_max}}</td>
+        <td></td>
+        <td></td>
+        <td>AVA</td>
+        <td>{{AVA}} cm²</td>
+      </tr>
+      <tr>
+        <td>MZ</td>
+        <td>{{MZ_regurg}}</td>
+        <td></td>
+        <td></td>
+        <td>PHT</td>
+        <td></td>
+        <td>MVA<br>dP RV/RA</td>
+        <td>{{MVA}} cm²<br>{{dP_RV_RA}}</td>
+      </tr>
+      <tr>
+        <td>TZ</td>
+        <td>{{TZ_regurg}}</td>
+        <td>ant.<br>ret.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>PZ</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>ant.<br>ret.</td>
+        <td></td>
+        <td>PVA</td>
+        <td>{{PVA}} cm²</td>
+      </tr>
+      <tr>
+        <td>LVOT</td>
+        <td>{{LVOT_regurg}}</td>
+        <td>SF</td>
+        <td></td>
+        <td></td>
+        <td>{{LVOT_VTI}}</td>
+        <td>PIRF</td>
+        <td>{{PIRF}} %</td>
+      </tr>
+      <tr>
+        <td>RVOT</td>
+        <td>{{RVOT_regurg}}</td>
+        <td>SF</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Q</td>
+        <td>{{Q_lvot}} l/min.</td>
+      </tr>
+      <tr>
+        <td>D Ao</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>ant.</td>
+        <td></td>
+        <td>Q</td>
+        <td>{{Q_rvot}} l/min.</td>
+      </tr>
+      <tr>
+        <td>DRUGE<br>LOKALIZA-<br>CIJE</td>
+        <td colspan="2">TDI s {{TDI_s}}<br>e' {{TDI_e}}<br>a' {{TDI_a}} cm/s</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>AIRF</td>
+        <td>{{AIRF}} %</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- NALAZ -->
+  <div class="nalaz">
+    <p class="nalaz-title">Nalaz:</p>
+    <p>{{nalaz_tekst}}</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      PRIVATNA INTERNISTIČKA ORDINACIJA<br>
+      VI. Prof. dr {{doktor_ime}}<br>
+      {{doktor_specijalnost}}<br>
+      {{adresa_ordinacije}}
+    </div>
+    <div class="footer-right">
+      <span class="signature">{{doktor_potpis}}</span>
+    </div>
+  </div>
+
+</body>
+</html>
