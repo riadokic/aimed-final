@@ -5,7 +5,7 @@ import { ArrowRight, ShieldCheck, Mic, FileText, LogIn } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-36 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden radial-glow">
+    <section className="relative pt-32 pb-12 md:pt-56 md:pb-32 px-6 overflow-hidden radial-glow">
       {/* Side Decorative Portal Hints */}
       <div className="absolute inset-0 pointer-events-none hidden lg:block">
         {/* Left Hint - Audio In Activity */}
@@ -68,13 +68,11 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-col items-center pt-4 animate-reveal [animation-delay:300ms]">
-          <div className="flex flex-col sm:flex-row items-start justify-center gap-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
             {/* Primary CTA: Registracija */}
             <div className="flex flex-col items-center gap-4">
               <Link
-                href="https://cal.eu/aimed/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/registracija"
                 className="bg-black text-white w-[240px] py-4 rounded-2xl text-[16px] font-bold hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 group shadow-2xl shadow-zinc-200/50"
               >
                 Započni besplatno

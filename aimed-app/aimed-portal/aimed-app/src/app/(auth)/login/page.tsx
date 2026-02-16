@@ -63,7 +63,7 @@ export default function LoginPage() {
         </Link>
       </div>
 
-      <div className="rounded-2xl border border-aimed-gray-200 bg-aimed-white p-6 sm:p-8 shadow-sm">
+      <div className="rounded-2xl border border-aimed-gray-200 bg-aimed-white p-5 sm:p-8 shadow-sm">
         <h1 className="text-base font-semibold text-aimed-black mb-1">Prijava</h1>
         <p className="text-xs text-aimed-gray-400 mb-6">
           Prijavite se na svoj AiMED račun

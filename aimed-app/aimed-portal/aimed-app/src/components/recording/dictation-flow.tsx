@@ -82,7 +82,7 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
   const recorder = useAudioRecorder();
   const api = useAimedApi();
   const { exportPdf, exportWord, pdfLoading, wordLoading } = useAimedExport();
-  const { createReport, updateReport } = useReports();
+  const { createReport } = useReports();
   const { updatePatient } = usePatients();
 
   // dnd-kit sensors with activation distance to avoid interfering with text selection
@@ -327,18 +327,15 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
   async function saveReportToDb() {
     if (savedToDb || !doctorId) return;
     try {
-      if (mode === "update" && existingReport) {
-        await updateReport(existingReport.id, {
-          content: { sections: editedSections },
-        });
-      } else {
-        await createReport({
-          patient_id: patient.id,
-          content: { sections: editedSections },
-          report_date: new Date().toISOString().slice(0, 10),
-          type: mode === "update" ? "ažuriranje" : "novi",
-        });
-      }
+      // Always create a new report — even in update mode.
+      // This preserves the original report and makes it easy to track
+      // ongoing patient visits without overwriting previous findings.
+      await createReport({
+        patient_id: patient.id,
+        content: { sections: editedSections },
+        report_date: new Date().toISOString().slice(0, 10),
+        type: mode === "update" ? "ažuriranje" : "novi",
+      });
       setSavedToDb(true);
     } catch {
       // Will save to localStorage as fallback

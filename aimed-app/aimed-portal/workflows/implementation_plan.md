@@ -17,23 +17,16 @@ pdf-generator.ts
 * Adjust HTML/CSS to match the spacing and font styles of the Word export.
 * Verify `html2pdf.js` integration and fix the "not working" issue (likely resource loading or container ID mismatch).
 
-### 2. Dictation Flow (Logic Update)
+### 2. Report Update
 
-#### [MODIFY]
+When a report is about to be updated, a recording is done, and then when the doctor edits the new report, it is made as a new report, not an update of old one. The idea is to enable easy new reports for ongoing patients where not a lont changes each time.
 
-dictation-flow.tsx
 
-* Add a "Pokušaj ponovo" (Retry) button during the "Editing" phase that clears current state WITHOUT saving to DB.
-* Modify
+3. UI Fixes
 
-  handleCopyForHIS to also trigger
+Please make sure the scrollability on all devices is intact. I cannot see the entire page when I am on mobile, regardless where. Pls fix this.
 
-  saveReportToDb().
-* Ensure
-
-  saveReportToDb correctly handles the `savedToDb` flag to prevent duplicate entries if multiple actions (e.g., Copy and then Download) are taken.
-
-### 3. Authentication Testing Strategy (TestSprite)
+### 4. Authentication Testing Strategy (TestSprite)
 
 #### Overview
 
@@ -102,7 +95,7 @@ TestSprite is used for automated E2E testing of the AIMED portal's authenticatio
 
 ---
 
-### 4. GDPR Framework for n8n
+### 5. GDPR Framework for n8n
 
 #### Problem Statement
 
@@ -167,6 +160,7 @@ Langdock is an EU-based AI gateway that could replace direct OpenAI/Anthropic AP
 - **Cons**: Additional cost layer, potential latency, vendor lock-in
 - **Recommendation**: Use Langdock only if you're using external LLM APIs (not self-hosted models). If using self-hosted Whisper + self-hosted LLM, Langdock is unnecessary. For OpenAI Whisper API specifically, Langdock or a similar EU proxy adds meaningful GDPR value.
 
+
 #### Summary Checklist
 
 - [ ] Audio deleted immediately after transcription (code-level)
@@ -178,17 +172,3 @@ Langdock is an EU-based AI gateway that could replace direct OpenAI/Anthropic AP
 - [ ] n8n telemetry disabled
 - [ ] ROPA document maintained
 - [ ] User consent collected at registration (existing GDPR checkbox)
-
-5. UI Fixes
-
-add a "Nazad" button in the top left corner for the login/sign up screen that takes the user back to the home page
-
-6. Pacijenti page
-
-When a doctor presses on a patient, they see their reports. If they click on Otvori for a specific report, they are just taken to Historija nalaza which is not so smooth. They should be able to also have that report open (the sections readable and editable) and able to download it. I don't know how, but enable this. Also, if a patient's name is open and a button Kreiraj nalaz is clicked (it should be black with white filling btw), it should start with transcription right away because it is clicked within the folder of a specific patient. Make the byttons generally a bit bigger in these compartments. Patients page should also allow for temporal search just like the one in Historija nalaza (just copy the logic) whereby only the patients whose most relevant report happened within the filtered timeline.
-
-7. Postavke page
-
-Remove the Šablon za izvoz field for now, it is completely useless.
-
-Also, when PDF export (after editing a dictate) is clicked and also ZIP export is clicked, there is a weird screen popping up, like a glitch/bug. Fix it please.

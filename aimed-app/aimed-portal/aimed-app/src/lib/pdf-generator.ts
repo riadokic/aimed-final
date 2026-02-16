@@ -105,7 +105,7 @@ function html2pdfConfig(filename?: string) {
       },
     },
     jsPDF: { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const },
-    pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+    pagebreak: { mode: ["css", "legacy"] },
   };
 }
 
@@ -124,11 +124,19 @@ function createOffscreenContainer(html: string): HTMLDivElement {
   return el;
 }
 
+/** Dynamically import html2pdf.js (handles both ESM default and CJS module formats) */
+async function loadHtml2Pdf() {
+  const mod = await import("html2pdf.js");
+  // html2pdf.js may expose the factory as .default or as the module itself
+  const factory = typeof mod.default === "function" ? mod.default : (mod as unknown as () => unknown);
+  return factory;
+}
+
 /**
  * Generates a professional medical report PDF and triggers download.
  */
 export async function generatePdf(options: PdfOptions): Promise<void> {
-  const html2pdf = (await import("html2pdf.js")).default;
+  const html2pdf = await loadHtml2Pdf();
 
   // Pre-fetch branding images as base64 to avoid CORS blank-canvas issues
   const resolved = await resolveBranding(options.branding);
@@ -144,11 +152,11 @@ export async function generatePdf(options: PdfOptions): Promise<void> {
 
   try {
     await new Promise<void>((resolve) => {
-      requestAnimationFrame(() => setTimeout(resolve, 150));
+      requestAnimationFrame(() => setTimeout(resolve, 300));
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const worker = html2pdf() as any;
+    const worker = (html2pdf as any)();
     await worker.set(html2pdfConfig(filename)).from(container).save();
   } catch (err) {
     console.error("PDF generation failed:", err);
@@ -162,7 +170,7 @@ export async function generatePdf(options: PdfOptions): Promise<void> {
  * Generates a PDF blob (without triggering download).
  */
 export async function generatePdfBlob(options: PdfOptions): Promise<Blob> {
-  const html2pdf = (await import("html2pdf.js")).default;
+  const html2pdf = await loadHtml2Pdf();
 
   const resolved = await resolveBranding(options.branding);
   const html = buildPrintHtml(options, resolved);
@@ -172,11 +180,11 @@ export async function generatePdfBlob(options: PdfOptions): Promise<Blob> {
 
   try {
     await new Promise<void>((resolve) => {
-      requestAnimationFrame(() => setTimeout(resolve, 150));
+      requestAnimationFrame(() => setTimeout(resolve, 300));
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const worker = html2pdf() as any;
+    const worker = (html2pdf as any)();
     const blob: Blob = await worker
       .set(html2pdfConfig())
       .from(container)
@@ -201,16 +209,16 @@ function buildPrintHtml(options: PdfOptions, resolved: ResolvedBranding = {}): s
   const signatureUrl = resolved.signatureDataUrl || branding?.signatureUrl;
   const stampUrl = resolved.stampDataUrl || branding?.stampUrl;
 
-  // ── Section HTML ──
+  // ── Section HTML (matches Word export styling) ──
   const sectionHtml = sections
     .filter((s) => s.content.trim().length > 0)
     .map(
       (s) => `
-      <div style="margin-bottom: 18px; page-break-inside: avoid;">
-        <p style="font-size: 11pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 4px 0; color: #333;">
+      <div style="margin-bottom: 20px; page-break-inside: avoid;">
+        <p style="font-size: 11pt; font-weight: bold; margin: 0 0 6px 0; color: #1a1a1a; font-family: 'Times New Roman', serif;">
           ${escapeHtml(s.title)}
         </p>
-        <p style="font-size: 11pt; line-height: 1.5; margin: 0; white-space: pre-wrap; font-family: 'Times New Roman', serif;">
+        <p style="font-size: 11pt; line-height: 1.55; margin: 0; white-space: pre-wrap; font-family: 'Times New Roman', serif;">
           ${escapeHtml(s.content)}
         </p>
       </div>`

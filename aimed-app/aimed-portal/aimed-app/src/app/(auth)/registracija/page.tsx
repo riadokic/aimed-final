@@ -124,7 +124,7 @@ export default function RegistracijaPage() {
     "w-full rounded-lg border border-aimed-gray-200 px-3 py-2.5 text-sm text-aimed-black placeholder:text-aimed-gray-400 outline-none transition-colors duration-200 focus:border-aimed-black";
 
   return (
-    <div className="w-full max-w-sm">
+    <>
       {/* Back button */}
       <div className="mb-4">
         <Link
@@ -147,7 +147,7 @@ export default function RegistracijaPage() {
         </Link>
       </div>
 
-      <div className="rounded-2xl border border-aimed-gray-200 bg-aimed-white p-6 sm:p-8 shadow-sm">
+      <div className="rounded-2xl border border-aimed-gray-200 bg-aimed-white p-5 sm:p-8 shadow-sm">
         <h1 className="text-base font-semibold text-aimed-black mb-1">Registracija</h1>
         <p className="text-xs text-aimed-gray-400 mb-6">
           Kreirajte svoj AiMED račun
@@ -306,7 +306,7 @@ export default function RegistracijaPage() {
           </Link>
         </p>
       </div>
-    </div>
+    </>
   );
 }
 

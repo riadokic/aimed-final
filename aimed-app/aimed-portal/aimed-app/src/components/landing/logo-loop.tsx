@@ -57,7 +57,7 @@ export default function LogoLoop({
 
       <div className="flex w-full">
         <div
-          className="flex whitespace-nowrap animate-marquee"
+          className="flex whitespace-nowrap animate-marquee py-12"
           style={{
             gap: `${gap}px`,
             animationDuration: `${speed}s`,
@@ -79,23 +79,23 @@ export default function LogoLoop({
             return (
               <div
                 key={idx}
-                className={`flex-shrink-0 flex items-center gap-3 px-8 py-4 rounded-2xl border border-zinc-100 bg-white/50 backdrop-blur-sm transition-all duration-300 ${scaleOnHover
-                    ? "hover:scale-105 hover:border-zinc-300 hover:bg-white hover:shadow-xl hover:shadow-zinc-200/50"
-                    : ""
+                className={`flex-shrink-0 flex items-center gap-3 transition-all duration-500 ease-in-out ${scaleOnHover
+                  ? "hover:scale-110 active:scale-95"
+                  : ""
                   }`}
               >
                 {logo.node && (
-                  <div className="text-black">{logo.node}</div>
+                  <div className="text-black transition-all duration-500">{logo.node}</div>
                 )}
                 {logo.src && (
                   <img
                     src={logo.src}
                     alt={logo.alt}
-                    className="h-6 w-auto grayscale group-hover:grayscale-0 transition-all"
+                    className="h-10 w-auto opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500 ease-in-out cursor-pointer"
                   />
                 )}
                 {logo.title && (
-                  <span className="text-sm font-bold tracking-tighter text-black uppercase">
+                  <span className="text-sm font-bold tracking-tighter text-zinc-400 hover:text-black uppercase transition-all duration-500">
                     {logo.title}
                   </span>
                 )}

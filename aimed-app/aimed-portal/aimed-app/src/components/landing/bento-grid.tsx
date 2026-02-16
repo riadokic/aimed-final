@@ -11,7 +11,7 @@ export default function BentoGrid() {
   return (
     <section
       id="features"
-      className="min-h-screen flex items-center py-20 px-6 bg-white border-t border-zinc-100"
+      className="py-16 sm:py-20 lg:py-24 px-6 bg-white border-t border-zinc-100"
     >
       <div className="max-w-6xl mx-auto w-full">
         <div className="mb-16 text-center space-y-6">
@@ -30,7 +30,7 @@ export default function BentoGrid() {
 
         <div className="grid grid-cols-12 gap-6">
           {/* Card 1 - New Report */}
-          <div className="col-span-12 lg:col-span-8 group relative bg-zinc-50 rounded-[2.5rem] border border-zinc-100 p-10 overflow-hidden hover:border-zinc-300 transition-all duration-500 shadow-sm">
+          <div className="col-span-12 lg:col-span-8 group relative bg-zinc-50 rounded-[2rem] sm:rounded-[2.5rem] border border-zinc-100 p-6 sm:p-10 overflow-hidden hover:border-zinc-300 transition-all duration-500 shadow-sm">
             <div className="relative z-10 space-y-6">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-white rounded-2xl border border-zinc-200 flex items-center justify-center shadow-sm">
@@ -72,7 +72,7 @@ export default function BentoGrid() {
           </div>
 
           {/* Card 2 - Update Mode */}
-          <div className="col-span-12 lg:col-span-4 group bg-white rounded-[2.5rem] border border-zinc-100 p-10 hover:border-zinc-300 transition-all duration-500 shadow-sm relative overflow-hidden flex flex-col justify-between">
+          <div className="col-span-12 lg:col-span-4 group bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-zinc-100 p-6 sm:p-10 hover:border-zinc-300 transition-all duration-500 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-12 h-12 bg-zinc-50 rounded-2xl border border-zinc-100 flex items-center justify-center">
                 <RefreshCw className="w-6 h-6 text-zinc-400 group-hover:rotate-180 transition-transform duration-700" />
@@ -96,7 +96,7 @@ export default function BentoGrid() {
           </div>
 
           {/* Card 3 - Template Mode */}
-          <div className="col-span-12 lg:col-span-4 group bg-white rounded-[2.5rem] border border-zinc-100 p-10 hover:border-zinc-300 transition-all duration-500 shadow-sm flex flex-col justify-between">
+          <div className="col-span-12 lg:col-span-4 group bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-zinc-100 p-6 sm:p-10 hover:border-zinc-300 transition-all duration-500 shadow-sm flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-12 h-12 bg-zinc-50 rounded-2xl border border-zinc-100 flex items-center justify-center">
                 <FileText className="w-6 h-6 text-zinc-400" />
@@ -118,7 +118,7 @@ export default function BentoGrid() {
           </div>
 
           {/* Card 4 - Security (Dark) */}
-          <div className="col-span-12 lg:col-span-8 group relative bg-black rounded-[2.5rem] p-10 overflow-hidden hover:shadow-2xl transition-all duration-700">
+          <div className="col-span-12 lg:col-span-8 group relative bg-black rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-10 overflow-hidden hover:shadow-2xl transition-all duration-700">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center h-full">
               <div className="space-y-6 text-white relative z-10">
                 <div className="w-12 h-12 bg-white/10 rounded-2xl border border-white/10 flex items-center justify-center">
