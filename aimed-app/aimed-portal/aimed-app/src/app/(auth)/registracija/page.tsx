@@ -45,6 +45,7 @@ export default function RegistracijaPage() {
       email,
       password,
       options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
         data: {
           full_name: fullName,
           specialization,

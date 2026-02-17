@@ -77,14 +77,31 @@ TestSprite is used for automated E2E testing of the AIMED portal's authenticatio
 | 4.5 | Rapid double-submit             | Click login button twice quickly               | Only one request sent (button disabled during loading)   |
 | 4.6 | Page freeze during auth         | Trigger heavy computation during auth callback | Auth callback completes after unfreeze, session saved    |
 
-**Suite 5: Protected Route Access**
+**Suite 5: Email Confirmation → Onboarding Wizard Flow**
+
+| #   | Test Case                          | Steps                                                                                                    | Expected Result                                                                                           |
+| --- | ---------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 5.1 | Confirmation redirects to callback | Register new account, click confirmation link in email                                                   | Redirected to /auth/callback, code exchanged, then redirected to /dashboard                               |
+| 5.2 | Onboarding wizard appears          | After email confirmation, land on /dashboard                                                             | ProfileCompletionGate shows multi-step onboarding wizard (not the dashboard)                              |
+| 5.3 | Step 1 mandatory validation        | On wizard step 1, try to proceed with empty name or specialization                                       | Next button disabled until both fields filled                                                              |
+| 5.4 | Step 1 → Step 2 navigation         | Fill name and specialization, click Next                                                                 | Advances to step 2 (Podaci o ordinaciji), step indicator updates                                          |
+| 5.5 | Step 2 skip                        | On step 2, click Skip                                                                                    | Advances to step 3 without requiring clinic info                                                           |
+| 5.6 | Step 2 back navigation             | On step 2, click Back                                                                                    | Returns to step 1 with previously entered data preserved                                                   |
+| 5.7 | Step 3 mandatory validation        | On step 3, remove all report categories                                                                  | Next button disabled; must have at least 1 category                                                        |
+| 5.8 | Step 3 add/remove categories       | Add a custom category, remove a default one                                                              | Category list updates correctly, can proceed                                                                |
+| 5.9 | Step 4 skip (finish)               | On step 4 (Branding), click Skip/Završi                                                                 | Wizard completes, profile saved to Supabase, dashboard renders                                             |
+| 5.10| Step 4 upload branding             | On step 4, upload logo/stamp/signature images                                                            | Files uploaded to Supabase Storage, URLs saved to profile                                                  |
+| 5.11| Wizard not shown for complete user | Login with a user who already completed onboarding                                                       | Dashboard renders directly, no wizard                                                                      |
+| 5.12| Middleware passes /auth/callback   | Navigate to /auth/callback with valid code while unauthenticated                                         | Middleware does not redirect to /login; callback route executes                                            |
+
+**Suite 6: Protected Route Access**
 
 | #   | Test Case                             | Steps                                 | Expected Result                        |
 | --- | ------------------------------------- | ------------------------------------- | -------------------------------------- |
-| 5.1 | Unauthenticated access to /dashboard  | Navigate to /dashboard without login  | Redirect to /login                     |
-| 5.2 | Unauthenticated access to /novi-nalaz | Navigate to /novi-nalaz without login | Redirect to /login                     |
-| 5.3 | Unauthenticated access to /postavke   | Navigate to /postavke without login   | Redirect to /login                     |
-| 5.4 | Post-logout access                    | Logout, press back button             | Redirect to /login (middleware blocks) |
+| 6.1 | Unauthenticated access to /dashboard  | Navigate to /dashboard without login  | Redirect to /login                     |
+| 6.2 | Unauthenticated access to /novi-nalaz | Navigate to /novi-nalaz without login | Redirect to /login                     |
+| 6.3 | Unauthenticated access to /postavke   | Navigate to /postavke without login   | Redirect to /login                     |
+| 6.4 | Post-logout access                    | Logout, press back button             | Redirect to /login (middleware blocks) |
 
 #### TestSprite Configuration Notes
 

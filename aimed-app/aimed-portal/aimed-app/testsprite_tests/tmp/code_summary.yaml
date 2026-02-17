@@ -1,0 +1,274 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Next.js 16 (App Router)
+  - Tailwind CSS
+  - Supabase (Auth + Database + Storage)
+  - html2pdf.js (PDF export)
+  - docx (Word export)
+routes:
+  - path: /
+    file: src/app/page.tsx
+    auth_required: false
+    description: Landing page with hero, features, pricing, FAQ
+  - path: /login
+    file: src/app/(auth)/login/page.tsx
+    auth_required: false
+    description: Email/password and Google OAuth login
+  - path: /registracija
+    file: src/app/(auth)/registracija/page.tsx
+    auth_required: false
+    description: New user registration with email, password, name, specialization, clinic, GDPR consent
+  - path: /reset-password
+    file: src/app/(auth)/reset-password/page.tsx
+    auth_required: false
+    description: Password reset flow
+  - path: /auth/callback
+    file: src/app/auth/callback/route.ts
+    auth_required: false
+    description: OAuth and email confirmation callback - exchanges code for session
+  - path: /dashboard
+    file: src/app/dashboard/page.tsx
+    auth_required: true
+    description: Main dashboard with report stats, recent reports, quick actions
+  - path: /novi-nalaz
+    file: src/app/novi-nalaz/page.tsx
+    auth_required: true
+    description: New medical report - audio dictation recording and report generation
+  - path: /historija
+    file: src/app/historija/page.tsx
+    auth_required: true
+    description: Report history list with search and filters
+  - path: /pacijenti
+    file: src/app/pacijenti/page.tsx
+    auth_required: true
+    description: Patient management - list, add, edit patients
+  - path: /postavke
+    file: src/app/postavke/page.tsx
+    auth_required: true
+    description: Settings - doctor info, clinic info, report categories, branding uploads, account deletion
+  - path: /politika-privatnosti
+    file: src/app/politika-privatnosti/page.tsx
+    auth_required: false
+    description: Privacy policy page
+  - path: /uslovi-koristenja
+    file: src/app/uslovi-koristenja/page.tsx
+    auth_required: false
+    description: Terms of service page
+  - path: /gdpr-sigurnost
+    file: src/app/gdpr-sigurnost/page.tsx
+    auth_required: false
+    description: GDPR security information page
+features:
+  - name: Email Registration
+    description: Register with name, specialization, clinic, email, password. GDPR consent required. Sends confirmation email.
+    files:
+      - src/app/(auth)/registracija/page.tsx
+      - src/components/auth/auth-provider.tsx
+    entry_route: /registracija
+    user_interactions:
+      - Fill full name input
+      - Fill specialization input
+      - Fill clinic name input
+      - Fill email input
+      - Fill password input
+      - Fill confirm password input
+      - Check GDPR consent checkbox
+      - Click "Registrujte se" button
+      - See success screen with "Provjerite email" message
+    api_calls:
+      - method: POST
+        endpoint: Supabase Auth signUp
+    auth_required: false
+  - name: Email Login
+    description: Login with email and password credentials
+    files:
+      - src/app/(auth)/login/page.tsx
+      - src/components/auth/auth-provider.tsx
+    entry_route: /login
+    user_interactions:
+      - Fill email input
+      - Fill password input
+      - Click "Prijavite se" button
+      - See error on invalid credentials
+      - Redirect to /dashboard on success
+    api_calls:
+      - method: POST
+        endpoint: Supabase Auth signInWithPassword
+    auth_required: false
+  - name: Google OAuth Login
+    description: Login or register via Google OAuth
+    files:
+      - src/components/auth/google-button.tsx
+      - src/components/auth/auth-provider.tsx
+      - src/app/auth/callback/route.ts
+    entry_route: /login
+    user_interactions:
+      - Click "Prijavi se putem Google-a" button
+      - Google consent screen opens
+      - After approval, redirect to /dashboard
+    api_calls:
+      - method: GET
+        endpoint: Supabase Auth signInWithOAuth (Google)
+    auth_required: false
+  - name: Email Confirmation Flow
+    description: After registration, user receives confirmation email. Clicking the link redirects to /auth/callback which exchanges code for session and redirects to /dashboard.
+    files:
+      - src/app/(auth)/registracija/page.tsx
+      - src/app/auth/callback/route.ts
+      - middleware.ts
+    entry_route: /auth/callback
+    user_interactions:
+      - Click confirmation link in email
+      - Automatically redirected to /dashboard
+      - Onboarding wizard appears for new users
+    api_calls:
+      - method: GET
+        endpoint: /auth/callback (exchanges code for Supabase session)
+    auth_required: false
+  - name: Onboarding Wizard
+    description: Multi-step wizard shown to new users after email confirmation. 4 steps - doctor info (mandatory), clinic info (skippable), report sections (mandatory), branding uploads (skippable).
+    files:
+      - src/components/auth/profile-completion-modal.tsx
+      - src/components/layout/app-shell.tsx
+    entry_route: /dashboard
+    user_interactions:
+      - Step 1 - Fill doctor name and specialization (required)
+      - Click Next to advance
+      - Step 2 - Optionally fill clinic name, address, phone, website
+      - Click Skip or Next
+      - Step 3 - Configure report categories (add/remove/reorder)
+      - Click Next (at least 1 category required)
+      - Step 4 - Optionally upload logo, stamp, signature images
+      - Click "Završi" to complete onboarding
+      - Click Back to go to previous step
+    api_calls:
+      - method: PATCH
+        endpoint: Supabase profiles table update
+      - method: POST
+        endpoint: Supabase Storage upload (branding bucket)
+    auth_required: true
+  - name: Password Reset
+    description: Request password reset email and set new password
+    files:
+      - src/app/(auth)/reset-password/page.tsx
+    entry_route: /reset-password
+    user_interactions:
+      - Fill email input
+      - Click reset button
+      - Receive email with reset link
+      - Set new password
+    api_calls:
+      - method: POST
+        endpoint: Supabase Auth resetPasswordForEmail
+    auth_required: false
+  - name: Dashboard
+    description: Main dashboard showing report statistics, recent reports, and quick action buttons
+    files:
+      - src/app/dashboard/page.tsx
+    entry_route: /dashboard
+    user_interactions:
+      - View report count and statistics
+      - Click on recent reports
+      - Click quick action buttons (new report, patients, settings)
+    api_calls:
+      - method: GET
+        endpoint: Supabase reports table query
+    auth_required: true
+  - name: New Medical Report (Dictation)
+    description: Record audio dictation which is transcribed via n8n webhook into structured medical report sections
+    files:
+      - src/app/novi-nalaz/page.tsx
+      - src/components/recording/dictation-flow.tsx
+      - src/components/recording/live-waveform.tsx
+      - src/components/report/section-card.tsx
+    entry_route: /novi-nalaz
+    user_interactions:
+      - Click record button to start audio recording
+      - Speak medical dictation
+      - Click stop to end recording
+      - Wait for transcription processing
+      - Review and edit generated report sections
+      - Export as PDF or Word
+      - Copy for HIS system
+    api_calls:
+      - method: POST
+        endpoint: /api/submit (n8n webhook proxy)
+    auth_required: true
+  - name: Report History
+    description: Browse and search past medical reports
+    files:
+      - src/app/historija/page.tsx
+    entry_route: /historija
+    user_interactions:
+      - View list of past reports
+      - Search reports by patient name or content
+      - Filter reports
+      - Click report to view details
+    api_calls:
+      - method: GET
+        endpoint: Supabase reports table query
+    auth_required: true
+  - name: Patient Management
+    description: Manage patient records - add, edit, view patients
+    files:
+      - src/app/pacijenti/page.tsx
+      - src/components/patient/patient-form.tsx
+    entry_route: /pacijenti
+    user_interactions:
+      - View patient list
+      - Click add new patient
+      - Fill patient form (name, date of birth, contact)
+      - Save patient
+      - Edit existing patient
+    api_calls:
+      - method: GET
+        endpoint: Supabase patients table query
+      - method: POST
+        endpoint: Supabase patients table insert
+      - method: PATCH
+        endpoint: Supabase patients table update
+    auth_required: true
+  - name: Settings
+    description: Configure doctor profile, clinic info, report categories, branding (logo/stamp/signature), and account management
+    files:
+      - src/app/postavke/page.tsx
+      - src/lib/report-storage.ts
+    entry_route: /postavke
+    user_interactions:
+      - Edit doctor name and specialization
+      - Edit clinic name, address, phone, website
+      - Add/remove/reorder report categories
+      - Upload logo, stamp, signature images
+      - Delete account
+    api_calls:
+      - method: PATCH
+        endpoint: Supabase profiles table update
+      - method: POST
+        endpoint: Supabase Storage upload (branding bucket)
+      - method: DELETE
+        endpoint: /api/account/delete
+    auth_required: true
+  - name: Protected Route Middleware
+    description: Middleware redirects unauthenticated users to /login and authenticated users away from public pages to /dashboard. Auth callback route is excluded from checks.
+    files:
+      - middleware.ts
+    entry_route: /
+    user_interactions:
+      - Navigate to any protected route without login
+      - Get redirected to /login
+      - Navigate to login page while authenticated
+      - Get redirected to /dashboard
+    api_calls: []
+    auth_required: false
+known_limitations:
+  - issue: Google OAuth tests require a real Google account or OAuth simulation
+    location: src/components/auth/google-button.tsx
+    impact: Cannot fully automate Google OAuth flow without test credentials
+  - issue: Audio dictation requires microphone access
+    location: src/components/recording/dictation-flow.tsx
+    impact: Dictation tests need browser microphone permission mocking
+  - issue: Email confirmation link requires actual email delivery
+    location: src/app/(auth)/registracija/page.tsx
+    impact: Cannot test full email confirmation flow without email access or Supabase test hooks

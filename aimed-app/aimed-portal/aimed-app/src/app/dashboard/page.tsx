@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { calculateTimeSaved } from "@/lib/analytics";
 import { formatBosnianDate } from "@/lib/utils";
 import { useReports, type ReportWithPatient } from "@/hooks/use-reports";
@@ -87,8 +86,11 @@ export default function HomePage() {
                   Diktirajte medicinski nalaz glasom. AI transkribuje, formatira i priprema za print.
                 </p>
               </div>
-              <Link href="/novi-nalaz" className="mt-4">
-                <Button className="w-full">Započni diktiranje</Button>
+              <Link
+                href="/novi-nalaz"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-aimed-black px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900"
+              >
+                Započni diktiranje
               </Link>
             </Card>
             <Card className="flex flex-col justify-between">
@@ -98,8 +100,11 @@ export default function HomePage() {
                   Učitajte PDF ili Word nalaz, pa diktirajte šta treba promijeniti.
                 </p>
               </div>
-              <Link href="/novi-nalaz?mode=update" className="mt-4">
-                <Button variant="secondary" className="w-full">Učitaj nalaz</Button>
+              <Link
+                href="/novi-nalaz?mode=update"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-aimed-gray-200 bg-aimed-white px-5 py-2.5 text-sm font-medium text-aimed-black transition-colors duration-200 hover:border-aimed-gray-400 hover:bg-aimed-gray-50"
+              >
+                Učitaj nalaz
               </Link>
             </Card>
           </div>

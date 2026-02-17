@@ -1,577 +1,3037 @@
 [
   {
     "id": "TC001",
-    "title": "Email/Password Registration Success",
-    "description": "Verify that a user can register successfully with valid full name, specialization, clinic name, email, and password meeting all validation criteria.",
-    "category": "functional",
+    "title": "Successful email registration shows 'Provjerite email' success screen",
+    "description": "Verifies a new doctor can register with all required fields and GDPR consent, and the UI shows the email-check success message.",
+    "category": "Email Registration",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to the registration page (/registracija)."
+        "description": "Navigate to /registracija"
       },
       {
         "type": "action",
-        "description": "Fill the registration form with valid full name, specialization, clinic name, valid email, and password with at least 8 characters and matching confirmation."
+        "description": "Type \"Dr Test Doktor\" into the full name input"
       },
       {
         "type": "action",
-        "description": "Submit the registration form."
+        "description": "Type \"Kardiologija\" into the specialization input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test Klinika\" into the clinic name input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"new.doctor.unique+1@example.com\" into the email input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the password input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the confirm password input"
+      },
+      {
+        "type": "action",
+        "description": "Click the GDPR consent checkbox"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Registrujte se\" button"
       },
       {
         "type": "assertion",
-        "description": "Confirm that a success confirmation email notification is shown."
-      },
-      {
-        "type": "assertion",
-        "description": "Verify profile data is stored in localStorage."
+        "description": "Verify text \"Provjerite email\" is visible"
       }
     ]
   },
   {
     "id": "TC002",
-    "title": "Email/Password Registration Validation Errors",
-    "description": "Verify validation errors occur if registration inputs do not meet requirements such as short password or password mismatch.",
-    "category": "error handling",
+    "title": "Password confirmation mismatch shows inline error",
+    "description": "Verifies registration is blocked and an inline mismatch error appears when confirm password does not match.",
+    "category": "Email Registration",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to the registration page."
+        "description": "Navigate to /registracija"
       },
       {
         "type": "action",
-        "description": "Fill the registration form with invalid data, e.g., password less than 8 characters or mismatched password confirmation."
+        "description": "Type \"Dr Mismatch\" into the full name input"
       },
       {
         "type": "action",
-        "description": "Attempt to submit the form."
+        "description": "Type \"mismatch.case+1@example.com\" into the email input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the password input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"DifferentPassw0rd!\" into the confirm password input"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Registrujte se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify appropriate validation error messages are displayed."
+        "description": "Verify text \"Password confirmation does not match\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Ensure the form is not submitted successfully."
+        "description": "Verify URL contains \"/registracija\""
       }
     ]
   },
   {
     "id": "TC003",
-    "title": "Email/Password Login Success",
-    "description": "Ensure user can login with valid email and password and is redirected correctly to the dashboard.",
-    "category": "functional",
+    "title": "GDPR consent unchecked blocks registration with required-consent error",
+    "description": "Verifies GDPR consent is required and registration is blocked when the checkbox is not checked.",
+    "category": "Email Registration",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to the login page (/login)."
+        "description": "Navigate to /registracija"
       },
       {
         "type": "action",
-        "description": "Enter registered email and correct password."
+        "description": "Type \"Dr No Consent\" into the full name input"
       },
       {
         "type": "action",
-        "description": "Click the login button."
+        "description": "Type \"Dermatologija\" into the specialization input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Klinika Bez Saglasnosti\" into the clinic name input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"no.consent.case+1@example.com\" into the email input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the password input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the confirm password input"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Registrujte se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify successful login and navigation to the dashboard."
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/registracija\""
       }
     ]
   },
   {
     "id": "TC004",
-    "title": "Email/Password Login Failure",
-    "description": "Verify appropriate error message is shown when login credentials are invalid.",
-    "category": "error handling",
-    "priority": "High",
+    "title": "Required-field validation when submitting empty form",
+    "description": "Verifies the registration form prevents submission and displays validation cues when required fields are missing.",
+    "category": "Email Registration",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Go to login page."
+        "description": "Navigate to /registracija"
       },
       {
         "type": "action",
-        "description": "Enter unregistered email or incorrect password."
-      },
-      {
-        "type": "action",
-        "description": "Click login button."
+        "description": "Click the \"Registrujte se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify error message indicating invalid credentials is displayed."
+        "description": "Verify URL contains \"/registracija\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"password\" is visible"
       }
     ]
   },
   {
     "id": "TC005",
-    "title": "Password Reset Flow",
-    "description": "Test that a user can request password reset email and receive success confirmation.",
-    "category": "functional",
+    "title": "Invalid email format is rejected",
+    "description": "Verifies the UI blocks registration when the email format is invalid.",
+    "category": "Email Registration",
     "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to password reset page (/reset-password)."
+        "description": "Navigate to /registracija"
       },
       {
         "type": "action",
-        "description": "Enter registered email address."
+        "description": "Type \"Dr Invalid Email\" into the full name input"
       },
       {
         "type": "action",
-        "description": "Submit password reset request."
+        "description": "Type \"not-an-email\" into the email input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the password input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the confirm password input"
+      },
+      {
+        "type": "action",
+        "description": "Click the GDPR consent checkbox"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Registrujte se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify success confirmation that reset email was sent is displayed."
+        "description": "Verify text \"email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/registracija\""
       }
     ]
   },
   {
     "id": "TC006",
-    "title": "GDPR Consent Gate Blocking Access Without Consent",
-    "description": "Ensure that after first login, GDPR consent modal is shown blocking access until user explicitly accepts the consent.",
-    "category": "security",
-    "priority": "High",
+    "title": "Weak/short password is rejected",
+    "description": "Verifies registration is blocked and an error is shown when the password does not meet minimum requirements.",
+    "category": "Email Registration",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Login with a valid user account who has not accepted GDPR consent consent version v1.0."
+        "description": "Navigate to /registracija"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr Weak Password\" into the full name input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"weak.password.case+1@example.com\" into the email input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"123\" into the password input"
+      },
+      {
+        "type": "action",
+        "description": "Type \"123\" into the confirm password input"
+      },
+      {
+        "type": "action",
+        "description": "Click the GDPR consent checkbox"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Registrujte se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify that full-screen GDPR consent modal with detailed information is displayed."
+        "description": "Verify text \"password\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Attempt to navigate to any app page and confirm access is blocked until consent is given."
+        "description": "Verify URL contains \"/registracija\""
       }
     ]
   },
   {
     "id": "TC007",
-    "title": "GDPR Consent Acceptance Remembered and Version-aware",
-    "description": "Verify that after acceptance, GDPR consent modal does not appear until a new version is released.",
-    "category": "functional",
-    "priority": "High",
+    "title": "Registration page renders key fields and the submit button",
+    "description": "Verifies the registration UI loads and displays the primary inputs and action controls needed to register.",
+    "category": "Email Registration",
+    "priority": "Low",
     "steps": [
       {
         "type": "action",
-        "description": "Login as user and accept GDPR consent modal."
-      },
-      {
-        "type": "action",
-        "description": "Log out and log in again."
+        "description": "Navigate to /registracija"
       },
       {
         "type": "assertion",
-        "description": "Confirm that consent modal does not appear because consent for current version is stored."
-      },
-      {
-        "type": "action",
-        "description": "Change GDPR consent version in app config."
-      },
-      {
-        "type": "action",
-        "description": "Login again."
+        "description": "Verify text \"Registrujte se\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify consent modal appears again requiring new acceptance."
+        "description": "Verify text \"Ime\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Specijalizacija\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Klinika\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Lozinka\" is visible"
       }
     ]
   },
   {
     "id": "TC008",
-    "title": "Medical Report Creation - New Report Success",
-    "description": "Verify doctor can create a new medical report with audio dictation, AI transcription, editing, and successful save.",
-    "category": "functional",
+    "title": "Successful email/password login redirects to dashboard",
+    "description": "Verifies that a returning user can log in with valid credentials and is redirected to the dashboard.",
+    "category": "Email Login",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to new report creation page (/novi-nalaz) and select 'new report' mode."
-      },
-      {
-        "type": "action",
-        "description": "Record audio dictation using the app's recording feature."
-      },
-      {
-        "type": "action",
-        "description": "Submit recording to backend and wait for AI transcription and formatting."
+        "description": "Navigate to /login"
       },
       {
         "type": "assertion",
-        "description": "Verify the transcribed medical report is displayed with correct sections."
+        "description": "Verify URL contains \"/login\""
       },
       {
         "type": "action",
-        "description": "Edit report sections including adding warnings and notes."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Prijavite se\" button"
       },
       {
         "type": "assertion",
-        "description": "Confirm edits persist and auto-save triggers without errors."
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Dashboard\" is visible"
       }
     ]
   },
   {
     "id": "TC009",
-    "title": "Medical Report Creation - Update Existing Report",
-    "description": "Verify that uploading an existing PDF or Word report allows targeted updates to medical sections without altering administrative data.",
-    "category": "functional",
+    "title": "Invalid password shows an error message",
+    "description": "Verifies that logging in with a correct email and wrong password shows a visible invalid-credentials error and does not redirect to dashboard.",
+    "category": "Email Login",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to report creation page and select 'update existing report' mode."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Upload a valid existing medical report in PDF or Word format."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"wrong-password-123\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Prijavite se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify the report loads with correct data into editable sections."
-      },
-      {
-        "type": "action",
-        "description": "Modify medical report sections only."
-      },
-      {
-        "type": "action",
-        "description": "Save the updated report."
+        "description": "Verify text \"Invalid\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Confirm that administrative data remains unchanged and updates are persisted correctly."
+        "description": "Verify URL contains \"/login\""
       }
     ]
   },
   {
     "id": "TC010",
-    "title": "Report Export - PDF Generation",
-    "description": "Ensure that final reports can be exported as properly formatted PDF documents with loading indicators and support concurrent exports.",
-    "category": "functional",
-    "priority": "High",
+    "title": "Non-existent user shows an error message",
+    "description": "Verifies that attempting to log in with an email not registered in the system shows a visible error message.",
+    "category": "Email Login",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Open any completed medical report in the app."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Click export and select PDF format."
-      },
-      {
-        "type": "assertion",
-        "description": "Verify that a loading state is shown during export processing."
-      },
-      {
-        "type": "assertion",
-        "description": "Confirm the downloaded PDF is correctly formatted and includes all report sections and template formatting."
+        "description": "Type \"nonexistent.user.98765@example.com\" into the email field"
       },
       {
         "type": "action",
-        "description": "Trigger multiple PDF exports concurrently."
+        "description": "Type \"somePassword!234\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Prijavite se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify concurrent exports complete successfully without errors."
+        "description": "Verify text \"Invalid\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/login\""
       }
     ]
   },
   {
     "id": "TC011",
-    "title": "Report Export - Word Document Generation",
-    "description": "Verify that reports export correctly to Word format (.docx) using templates or standard layout.",
-    "category": "functional",
-    "priority": "High",
+    "title": "Email field validation blocks login when empty",
+    "description": "Verifies the user cannot submit the login form when the email field is empty.",
+    "category": "Email Login",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Open a report and choose Word export format."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Initiate export and wait for completion."
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Prijavite se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify Word document is generated with correct content and formatting."
+        "description": "Verify text \"Email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/login\""
       }
     ]
   },
   {
     "id": "TC012",
-    "title": "Route Protection Middleware for Authenticated Access",
-    "description": "Test that only authenticated users can access protected app pages and unauthenticated users are redirected to login.",
-    "category": "security",
-    "priority": "High",
+    "title": "Password field validation blocks login when empty",
+    "description": "Verifies the user cannot submit the login form when the password field is empty.",
+    "category": "Email Login",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Attempt to navigate to a protected route (e.g., /novi-nalaz) without authentication."
-      },
-      {
-        "type": "assertion",
-        "description": "Confirm redirection to login page."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Login successfully."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Attempt to access an auth-only page again."
+        "description": "Click on \"Prijavite se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify access is granted to the protected route after login."
-      },
-      {
-        "type": "action",
-        "description": "Try to access login, registration, or reset pages while authenticated."
+        "description": "Verify text \"Password\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Confirm redirection away from auth pages to main app."
+        "description": "Verify URL contains \"/login\""
       }
     ]
   },
   {
     "id": "TC013",
-    "title": "User Settings Page - Profile Management and Preferences",
-    "description": "Verify the user can update their profile information, upload a Word template, change app preferences, and save changes.",
-    "category": "functional",
-    "priority": "Medium",
+    "title": "Invalid email format shows validation feedback",
+    "description": "Verifies that an incorrectly formatted email address is rejected with visible validation feedback or an error message.",
+    "category": "Email Login",
+    "priority": "Low",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to settings page (/postavke)."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Update doctor profile fields: name, specialty, clinic."
+        "description": "Type \"not-an-email\" into the email field"
       },
       {
         "type": "action",
-        "description": "Upload a valid Word report template file."
+        "description": "Type \"anyPassword123\" into the password field"
       },
       {
         "type": "action",
-        "description": "Change app preferences such as auto-copy toggle and export format."
-      },
-      {
-        "type": "action",
-        "description": "Save the updated settings."
+        "description": "Click on \"Prijavite se\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify updated profile info and preferences are persisted correctly."
+        "description": "Verify text \"email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/login\""
       }
     ]
   },
   {
     "id": "TC014",
-    "title": "User Settings Data Export and Deletion",
-    "description": "Test that data export as ZIP functions properly and complete data deletion removes local storage, consent info, and signs out user.",
-    "category": "functional",
-    "priority": "High",
+    "title": "Pressing Enter in password field submits login and redirects on success",
+    "description": "Verifies that pressing Enter from the password field submits the form and logs in successfully with valid credentials.",
+    "category": "Email Login",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "From settings page, trigger data export as ZIP."
-      },
-      {
-        "type": "assertion",
-        "description": "Verify a ZIP file containing user data is downloaded correctly."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Initiate data deletion via the delete all data option."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
       },
       {
         "type": "assertion",
-        "description": "Confirm localStorage and GDPR consent data are cleared."
+        "description": "Verify URL contains \"/dashboard\""
       },
       {
         "type": "assertion",
-        "description": "Verify user is signed out from Supabase auth."
+        "description": "Verify text \"Dashboard\" is visible"
       }
     ]
   },
   {
     "id": "TC015",
-    "title": "Dashboard Data Accuracy and Display",
-    "description": "Verify that dashboard shows accurate statistics (daily, monthly, total reports, time saved), recent report history, and action cards.",
-    "category": "functional",
-    "priority": "Medium",
+    "title": "Login page shows key UI elements",
+    "description": "Verifies that the login page renders essential controls needed to complete email/password login.",
+    "category": "Email Login",
+    "priority": "Low",
     "steps": [
       {
         "type": "action",
-        "description": "Login and navigate to dashboard page."
+        "description": "Navigate to /login"
       },
       {
         "type": "assertion",
-        "description": "Check statistics are displayed with correct values matching user data."
+        "description": "Verify text \"Prijavite se\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify recent report history list is populated correctly."
+        "description": "Verify element \"email\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Ensure quick action cards are visible and responsive."
+        "description": "Verify element \"password\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Prijavite se\" is visible"
       }
     ]
   },
   {
     "id": "TC016",
-    "title": "Report History - Filtering, Searching, Export and Delete",
-    "description": "Ensure report history page supports date grouping, filtering, searching, export to PDF/Word, and deletion of reports.",
-    "category": "functional",
-    "priority": "Medium",
+    "title": "Complete onboarding wizard using required fields and skip optional clinic step",
+    "description": "Verifies a new user can complete the full onboarding wizard and lands on the dashboard afterward.",
+    "category": "Onboarding Wizard",
+    "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to report history page (/historija)."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Apply various filters including date ranges and search keywords."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Prijava\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify filtered reports display correctly according to applied criteria."
-      },
-      {
-        "type": "action",
-        "description": "Export a selected report to PDF."
-      },
-      {
-        "type": "action",
-        "description": "Export a selected report to Word."
+        "description": "Verify URL contains \"/dashboard\""
       },
       {
         "type": "assertion",
-        "description": "Confirm both exports generate correctly."
-      },
-      {
-        "type": "action",
-        "description": "Delete a report from history."
+        "description": "Verify text \"Onboarding\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify the report is removed from history and database."
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Test Doktor\" into the doctor name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Kardiologija\" into the specialization field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 2\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skip\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 3\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Opšti pregled\" into the report category name field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Add category\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 4\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Završi\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Dashboard\" is visible"
       }
     ]
   },
   {
     "id": "TC017",
-    "title": "Local Storage Persistence and Auto-Clear",
-    "description": "Test that user profile and settings persist locally with encryption and that auto-clear mechanisms and error boundary handle corrupted data gracefully.",
-    "category": "functional",
-    "priority": "Medium",
+    "title": "Step 1 validation: doctor name required prevents advancing",
+    "description": "Verifies validation blocks moving past Step 1 when the mandatory doctor name is empty.",
+    "category": "Onboarding Wizard",
+    "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Log in and change profile or settings data."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Refresh browser and verify data persists from localStorage."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Manually corrupt localStorage data."
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Reload the app."
+        "description": "Click on the \"Prijava\" button"
       },
       {
         "type": "assertion",
-        "description": "Validate app's error boundaries trigger and corrupted data is cleared automatically."
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dermatologija\" into the specialization field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Obavezno\" is visible"
       }
     ]
   },
   {
     "id": "TC018",
-    "title": "API Integration - Audio Submission Endpoint",
-    "description": "Verify that audio submissions with form data are correctly handled by /api/submit endpoint with valid Supabase session and errors are sanitized.",
-    "category": "functional",
+    "title": "Step 1 validation: specialization required prevents advancing",
+    "description": "Verifies validation blocks moving past Step 1 when the mandatory specialization is empty.",
+    "category": "Onboarding Wizard",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Record and prepare audio dictation and required form data."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Send POST request to /api/submit with valid Supabase session token."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Prijava\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify submission is accepted and forwarded to n8n webhook."
+        "description": "Verify URL contains \"/dashboard\""
       },
       {
         "type": "assertion",
-        "description": "Confirm any error messages returned are sanitized and user-friendly."
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Test Spec\" into the doctor name field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Obavezno\" is visible"
       }
     ]
   },
   {
     "id": "TC019",
-    "title": "API Integration - Document Export Endpoint",
-    "description": "Ensure valid POST /api/export requests forward data to n8n endpoint and handle both binary PDF and JSON Word responses correctly with session validation.",
-    "category": "functional",
-    "priority": "High",
+    "title": "Step 2 optional clinic info: fill fields and proceed with Next",
+    "description": "Verifies clinic info can be entered on Step 2 and the wizard proceeds to Step 3.",
+    "category": "Onboarding Wizard",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Prepare report data payload and Supabase session token."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Send export request to /api/export."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Prijava\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify response returns correctly formatted binary PDF or JSON Word document."
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Test Klinika\" into the doctor name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Ortopedija\" into the specialization field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 2\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Poliklinika Test\" into the clinic name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test ulica 1\" into the clinic address field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"+38761111222\" into the clinic phone field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example-clinic.test\" into the clinic website field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 3\" is visible"
       }
     ]
   },
   {
     "id": "TC020",
-    "title": "Admin Panel Access and Data Display",
-    "description": "Verify that users with admin roles can access the admin panel, see account overviews, usage metrics, and multi-doctor organizational information securely.",
-    "category": "security",
+    "title": "Step 3 validation: cannot proceed without at least one report category",
+    "description": "Verifies Step 3 requires at least one report category before advancing to Step 4.",
+    "category": "Onboarding Wizard",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Login with admin user credentials."
+        "description": "Navigate to /login"
       },
       {
         "type": "action",
-        "description": "Navigate to admin panel."
-      },
-      {
-        "type": "assertion",
-        "description": "Verify account data, usage statistics, and organization details are displayed."
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Try accessing admin panel with non-admin user."
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Prijava\" button"
       },
       {
         "type": "assertion",
-        "description": "Confirm access is denied or redirected appropriately."
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Test Kategorije\" into the doctor name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Neurologija\" into the specialization field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 2\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skip\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 3\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 3\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Dodajte barem jednu kategoriju\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Back button navigates to previous steps and preserves entered doctor info",
+    "description": "Verifies Back navigation works and previously entered Step 1 values remain visible.",
+    "category": "Onboarding Wizard",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Prijava\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Test Back\" into the doctor name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Radiologija\" into the specialization field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 2\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Back\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Dr. Test Back\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Radiologija\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Skip Step 2 does not block completion and Step 4 can be finished without uploads",
+    "description": "Verifies optional steps (clinic and branding) can be skipped/left empty and onboarding still completes.",
+    "category": "Onboarding Wizard",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Prijava\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 1\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Test Skip\" into the doctor name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Pedijatrija\" into the specialization field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 2\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skip\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 3\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Kontrola\" into the report category name field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Add category\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Next\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Korak 4\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Završi\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Onboarding\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Request password reset with a registered email shows confirmation message",
+    "description": "Verifies the reset-password page accepts a valid email submission and shows a non-sensitive confirmation state.",
+    "category": "Password Reset",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reset-password"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Reset\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the reset button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"reset email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"sent\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Request password reset with an unregistered email does not leak account existence",
+    "description": "Verifies the UI response is non-specific or appropriately generic when the email is not registered.",
+    "category": "Password Reset",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reset-password"
+      },
+      {
+        "type": "action",
+        "description": "Type \"nonexistent.user.12345@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the reset button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"reset email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"sent\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No account\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC025",
+    "title": "Reset password form validation blocks empty email submission",
+    "description": "Verifies the user cannot submit the reset form without providing an email.",
+    "category": "Password Reset",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reset-password"
+      },
+      {
+        "type": "action",
+        "description": "Click the reset button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC026",
+    "title": "Reset password form validation blocks invalid email format",
+    "description": "Verifies the UI rejects an incorrectly formatted email address.",
+    "category": "Password Reset",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reset-password"
+      },
+      {
+        "type": "action",
+        "description": "Type \"not-an-email\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the reset button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"valid email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC027",
+    "title": "User can navigate from reset-password to login page",
+    "description": "Verifies the reset-password page provides a working navigation path back to login.",
+    "category": "Password Reset",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reset-password"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/login\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Password\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC028",
+    "title": "User can navigate from reset-password to registration page",
+    "description": "Verifies the reset-password page provides a working navigation path to create a new account.",
+    "category": "Password Reset",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reset-password"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Registracija\" link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/registracija\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC029",
+    "title": "Dashboard loads and shows report statistics for an authenticated user",
+    "description": "Verifies that an authenticated user can reach the dashboard and see report statistics widgets/values rendered.",
+    "category": "Dashboard",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Statistics\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Reports\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC030",
+    "title": "Open a recent report from Dashboard",
+    "description": "Verifies that clicking a recent report item navigates to an in-app report detail/editor view.",
+    "category": "Dashboard",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first item in the \"Recent reports\" list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL does not contain \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Report\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC031",
+    "title": "Dashboard quick action: start a new report",
+    "description": "Verifies that the Dashboard \"New report\" quick action navigates to the new medical report page.",
+    "category": "Dashboard",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"New report\" quick action button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/novi-nalaz\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"New\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC032",
+    "title": "Dashboard quick action: go to Patients",
+    "description": "Verifies that the Dashboard \"Patients\" quick action navigates to the patient management page.",
+    "category": "Dashboard",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Patients\" quick action button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/pacijenti\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Patients\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC033",
+    "title": "Dashboard quick action: go to Settings",
+    "description": "Verifies that the Dashboard \"Settings\" quick action navigates to the settings page.",
+    "category": "Dashboard",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Settings\" quick action button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/postavke\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Settings\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC034",
+    "title": "Dashboard shows empty-state when there are no recent reports",
+    "description": "Verifies that the Dashboard shows a clear empty-state message if the user has no recent reports to display.",
+    "category": "Dashboard",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Recent reports\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No recent reports\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC035",
+    "title": "Template mode: select a template and verify template mode indicator is shown",
+    "description": "Verifies the template workflow UI allows selecting a template and indicates template mode before dictation processing.",
+    "category": "New Medical Report (Dictation) - New / Update / Template Modes",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Novi nalaz\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Template\" selector control"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Default template\" from the template dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Template mode\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC036",
+    "title": "Report History loads and displays a list of past reports",
+    "description": "Verifies that the authenticated user can open Report History and see the reports list UI.",
+    "category": "Report History",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/historija\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Historija\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC037",
+    "title": "Search filters reports by patient name or report content and opens details",
+    "description": "Verifies search narrows the list and a report can be opened from filtered results.",
+    "category": "Report History",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Search\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"a\" into the search field"
+      }
+    ]
+  },
+  {
+    "id": "TC038",
+    "title": "Search with no matching results shows 'No results found' empty state",
+    "description": "Verifies the UI displays a clear empty state when search matches no reports.",
+    "category": "Report History",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Type \"zzzz-no-such-report-term\" into the search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No results found\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC039",
+    "title": "Filtering controls are available and applying a filter updates visible results area",
+    "description": "Verifies filter UI exists and applying a filter changes the visible list state.",
+    "category": "Report History",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Filter\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Filter\" control"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Filter options\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC040",
+    "title": "Open a report from the list and view details page/section",
+    "description": "Verifies selecting a report from history opens a detail view with report content visible.",
+    "category": "Report History",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Report list\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first report in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Detalji\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC041",
+    "title": "Search input accepts special characters without breaking the page",
+    "description": "Verifies the history page remains usable when the user enters punctuation or symbols in search.",
+    "category": "Report History",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Type \"!@#()_+{}[]:;,.?\" into the search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/historija\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Report list\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC042",
+    "title": "Long search term is handled gracefully and shows a stable results state",
+    "description": "Verifies the UI remains stable when entering a very long search query.",
+    "category": "Report History",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Type \"this-is-a-very-long-search-term-intended-to-test-input-handling-and-ui-stability-1234567890\" into the search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/historija\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Search\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC043",
+    "title": "Add a new patient and verify it appears in the patient list",
+    "description": "Verifies a logged-in user can create a patient record and see it listed afterward.",
+    "category": "Patient Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Pacijenti\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/pacijenti\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Pacijenti\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC044",
+    "title": "Create patient from Patients page using valid details",
+    "description": "Verifies the full add-patient workflow from the Patients page with valid input.",
+    "category": "Patient Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Pacijenti\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add new patient\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"New patient\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test Patient A\" into the Name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"1980-05-20\" into the Date of birth field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"+38761111222\" into the Contact field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save patient\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Test Patient A\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC045",
+    "title": "Prevent saving when required patient name is missing",
+    "description": "Verifies inline validation blocks saving if a required field is missing.",
+    "category": "Patient Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Pacijenti\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add new patient\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"1990-01-01\" into the Date of birth field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"test@example.com\" into the Contact field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save patient\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Name\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC046",
+    "title": "Prevent saving when date of birth is invalid",
+    "description": "Verifies inline validation appears and saving is blocked for an invalid date of birth.",
+    "category": "Patient Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Pacijenti\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add new patient\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test Patient Invalid DOB\" into the Name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"not-a-date\" into the Date of birth field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save patient\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Date of birth\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"invalid\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC047",
+    "title": "Open Patients page and verify list loads and is usable",
+    "description": "Verifies the Patients page renders a visible patient list area and primary actions are available.",
+    "category": "Patient Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Pacijenti\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/pacijenti\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"patient list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Add new patient\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC048",
+    "title": "Cancel adding a patient does not create a new list entry",
+    "description": "Verifies exiting the add-patient form without saving does not add a patient to the list.",
+    "category": "Patient Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Pacijenti\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add new patient\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Temp Patient Not Saved\" into the Name field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Cancel\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/pacijenti\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Temp Patient Not Saved\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC049",
+    "title": "Update doctor profile (name and specialization) successfully",
+    "description": "Verifies a logged-in user can update doctor name and specialization and sees a visible success confirmation.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/postavke\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Test User\" into the doctor name field"
+      }
+    ]
+  },
+  {
+    "id": "TC050",
+    "title": "Save doctor profile changes and see confirmation",
+    "description": "Verifies saving doctor profile changes shows a visible confirmation and the edited values remain visible after save.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Dr. Settings Save\" into the doctor name field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Save\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC051",
+    "title": "Edit clinic details successfully",
+    "description": "Verifies a logged-in user can edit clinic information and see a visible success confirmation.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Type \"AIMED Test Clinic\" into the clinic name field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Save\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC052",
+    "title": "Add a report category and save",
+    "description": "Verifies a logged-in user can add a new report category and sees a confirmation after saving.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Add category\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test Category A\" into the new category name field"
+      }
+    ]
+  },
+  {
+    "id": "TC053",
+    "title": "Remove a report category and save",
+    "description": "Verifies a logged-in user can remove an existing report category and sees a confirmation after saving.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Remove\" (delete) control for the first report category in the list"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Save\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC054",
+    "title": "Reorder report categories and verify reflected in New Report",
+    "description": "Verifies a logged-in user can reorder report categories, save, and then see the updated ordering available when starting a new report.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Move up\" control for the second report category"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Save\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC055",
+    "title": "Verify settings save confirmation is visible after categories update",
+    "description": "Verifies that after saving category changes, a visible confirmation message appears on the Settings page.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Saved\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC056",
+    "title": "Delete account flow - cancel in confirmation modal",
+    "description": "Verifies that canceling the delete-account confirmation keeps the user on Settings and the account remains intact in the current session.",
+    "category": "Settings (Doctor, Clinic, Report Categories, Branding, Account)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Postavke\" (Settings) in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Delete account\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Delete account\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Cancel\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC057",
+    "title": "Export a finalized report as PDF from History",
+    "description": "Verifies a user can open a finalized report from history and initiate PDF export from the report view.",
+    "category": "Export & Copy (PDF, Word, HIS Copy)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on a finalized report in the history list to open it"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Export as PDF\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC058",
+    "title": "Start PDF export from a finalized report opened from New Report page",
+    "description": "Verifies a user can access an existing finalized report context from the New Report area and start PDF export.",
+    "category": "Export & Copy (PDF, Word, HIS Copy)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Novi nalaz\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/novi-nalaz\""
+      },
+      {
+        "type": "action",
+        "description": "Click on a visible option to open an existing finalized report (for example, \"Recent reports\" or \"Open report\")"
+      }
+    ]
+  },
+  {
+    "id": "TC059",
+    "title": "Export a finalized report as Word when a template is available",
+    "description": "Verifies Word export action is available and can be initiated for a finalized report that has a stored .docx template.",
+    "category": "Export & Copy (PDF, Word, HIS Copy)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on a finalized report that indicates a Word template is available (for example, shows \"Template\" or \"DOCX\" label)"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Export as Word\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC060",
+    "title": "Copy report text for HIS and see 'Copied!' feedback",
+    "description": "Verifies the HIS copy action shows visible success feedback after clicking copy.",
+    "category": "Export & Copy (PDF, Word, HIS Copy)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on a finalized report in the history list to open it"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Copy for HIS\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Copied!\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC061",
+    "title": "HIS copy output does not show internal [NAPOMENA] warning text on-screen",
+    "description": "Verifies the report view does not surface internal [NAPOMENA] warnings in the HIS copy output preview area (if present) after copying.",
+    "category": "Export & Copy (PDF, Word, HIS Copy)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on a finalized report that visibly contains a note/warning section in its content (if available)"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Copy for HIS\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"[NAPOMENA]\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC062",
+    "title": "Word export option is not shown when no template is available",
+    "description": "Verifies that Word export is unavailable (hidden or disabled) for reports without a stored .docx template.",
+    "category": "Export & Copy (PDF, Word, HIS Copy)",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Historija\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on a finalized report that does not indicate any Word template is available"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Export as Word\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC063",
+    "title": "Authenticated user is redirected away from /login to /dashboard",
+    "description": "Verifies middleware prevents logged-in users from accessing the login page and redirects them to the dashboard.",
+    "category": "Protected Route Middleware",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Prijava\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      }
+    ]
+  },
+  {
+    "id": "TC064",
+    "title": "Authenticated user can access a protected route after login (no redirect to /login)",
+    "description": "Verifies that after successful login, navigating to a protected page stays within authenticated area.",
+    "category": "Protected Route Middleware",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Prijava\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /novi-nalaz"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/novi-nalaz\""
+      }
+    ]
+  },
+  {
+    "id": "TC065",
+    "title": "Accept GDPR consent on first-time app load unlocks app usage",
+    "description": "Verifies the GDPR consent modal blocks usage until the user accepts, after which the user can proceed to authenticated app areas.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prihvatam\" (Accept) button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      }
+    ]
+  },
+  {
+    "id": "TC066",
+    "title": "GDPR consent modal allows reading consent details before accepting",
+    "description": "Verifies the user can open and read consent details from the consent modal, then accept to proceed.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Detalji\" (Details) link in the GDPR consent modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Privola\" (Consent) is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prihvatam\" (Accept) button"
+      }
+    ]
+  },
+  {
+    "id": "TC067",
+    "title": "Declining GDPR consent keeps app blocked from proceeding",
+    "description": "Verifies that declining consent does not dismiss the blocking state and the user cannot proceed to use the app without accepting.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Odbijam\" (Decline) button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Prihvatam\" (Accept) is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC068",
+    "title": "Closing GDPR consent modal (without acceptance) keeps the app blocked",
+    "description": "Verifies that attempting to close the consent modal without accepting does not unlock the app.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the close \"X\" button on the GDPR consent modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Prihvatam\" (Accept) is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC069",
+    "title": "One-click data deletion from Settings clears data and returns to consent onboarding state",
+    "description": "Verifies the user can delete all local data from Settings and is returned to an initial consent-required state afterward.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Postavke\" (Settings) navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/postavke\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Obriši sve moje podatke\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Potvrdi\" (Confirm) is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC070",
+    "title": "Confirming data deletion clears consent and shows GDPR modal again",
+    "description": "Verifies that confirming deletion completes the action and the GDPR consent modal reappears, indicating consent state was cleared.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Postavke\" (Settings) navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Obriši sve moje podatke\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Potvrdi\" (Confirm) button in the deletion modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC071",
+    "title": "Canceling data deletion leaves current state unchanged",
+    "description": "Verifies that canceling the deletion confirmation does not delete data or clear consent state.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Postavke\" (Settings) navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Obriši sve moje podatke\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Otkaži\" (Cancel) button in the deletion modal"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/postavke\""
+      }
+    ]
+  },
+  {
+    "id": "TC072",
+    "title": "After accepting GDPR consent, navigating within the app does not show the consent modal again in-session",
+    "description": "Verifies that once consent is accepted, the user can navigate to another authenticated page without being re-blocked by the consent modal during the same session.",
+    "category": "GDPR Consent & Data Deletion",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prijava\" (Log in) button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"GDPR\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Prihvatam\" (Accept) button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Historija\" (History) navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/historija\""
       }
     ]
   }

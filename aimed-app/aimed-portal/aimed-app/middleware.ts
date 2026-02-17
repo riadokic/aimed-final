@@ -39,6 +39,11 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Auth callback must always pass through — it exchanges the code for a session
+  if (request.nextUrl.pathname.startsWith("/auth/callback")) {
+    return response;
+  }
+
   // Define public paths
   const publicPaths = ["/login", "/registracija", "/reset-password", "/politika-privatnosti", "/uslovi-koristenja", "/gdpr-sigurnost"];
   const isPublicPath =
