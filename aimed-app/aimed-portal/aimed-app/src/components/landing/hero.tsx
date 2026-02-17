@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Mic, FileText, LogIn } from "lucide-react";
+import { ArrowRight, Mic, FileText, LogIn } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -70,36 +70,62 @@ export default function Hero() {
         <div className="flex flex-col items-center pt-4 animate-reveal [animation-delay:300ms]">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
             {/* Primary CTA: Registracija */}
-            <div className="flex flex-col items-center gap-4">
-              <Link
-                href="/registracija"
-                className="bg-black text-white w-[240px] py-4 rounded-2xl text-[16px] font-bold hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 group shadow-2xl shadow-zinc-200/50"
-              >
-                Započni besplatno
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <div className="flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default group">
-                <ShieldCheck className="w-4 h-4 text-zinc-900 group-hover:text-blue-500 transition-colors" />
-                <span className="text-[10px] font-bold text-zinc-900 uppercase tracking-[0.2em]">
-                  GDPR Compliant
-                </span>
+            <Link
+              href="/registracija"
+              className="bg-black text-white w-[240px] py-4 rounded-2xl text-[16px] font-bold hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 group shadow-2xl shadow-zinc-200/50"
+            >
+              Započni besplatno
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+
+            {/* Secondary CTA: Prijava */}
+            <Link
+              href="/login"
+              className="bg-white text-black w-[240px] py-4 rounded-2xl text-[16px] font-bold border border-zinc-200 hover:bg-zinc-50 transition-all flex items-center justify-center gap-2 shadow-sm"
+            >
+              <LogIn className="w-5 h-5" />
+              Prijava za doktore
+            </Link>
+          </div>
+
+          {/* Compliance badges */}
+          <div className="mt-12 inline-flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
+            {/* ISO 27001 */}
+            <div className="group flex items-center gap-3 cursor-default">
+              <img
+                src="https://www.globalspedition.com/wp-content/uploads/2023/09/Logo-ISO-27001.png"
+                alt="ISO 27001"
+                className="h-9 w-9 object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+              />
+              <div className="text-left">
+                <p className="text-[13px] font-bold text-zinc-500 leading-none tracking-wide">ISO</p>
+                <p className="text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">27001:2022</p>
               </div>
             </div>
 
-            {/* Secondary CTA: Prijava */}
-            <div className="flex flex-col items-center gap-4">
-              <Link
-                href="/login"
-                className="bg-white text-black w-[240px] py-4 rounded-2xl text-[16px] font-bold border border-zinc-200 hover:bg-zinc-50 transition-all flex items-center justify-center gap-2 shadow-sm"
-              >
-                <LogIn className="w-5 h-5" />
-                Prijava za doktore
-              </Link>
-              <div className="flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default group">
-                <ShieldCheck className="w-4 h-4 text-zinc-900 group-hover:text-blue-500 transition-colors" />
-                <span className="text-[10px] font-bold text-zinc-900 uppercase tracking-[0.2em]">
-                  ZZLP usklađeno
-                </span>
+            {/* GDPR */}
+            <div className="group flex items-center gap-3 cursor-default">
+              <img
+                src="https://www.loginradius.com/assets/compliance/gdpr-compliant/gdpr-compliant.webp"
+                alt="GDPR Compliant"
+                className="h-9 w-auto object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+              />
+              <div className="text-left">
+                <p className="text-[13px] font-bold text-zinc-500 leading-none tracking-wide">GDPR</p>
+                <p className="text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">COMPLIANT</p>
+              </div>
+            </div>
+
+            {/* ZZLP BiH */}
+            <div className="group flex items-center gap-3 cursor-default">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Bosnia_and_Herzegovina_Coats_of_Arms.png"
+                alt="BiH grb"
+                className="h-9 w-auto object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+              />
+              <div className="text-left">
+                <p className="text-[13px] font-bold text-zinc-500 leading-none tracking-wide">ZZLP</p>
+                <p className="text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">USKLAĐENO</p>
               </div>
             </div>
           </div>

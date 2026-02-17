@@ -595,13 +595,13 @@ export default function PostavkePage() {
                 </p>
                 <div className="mb-4">
                   <label className="mb-1.5 block text-xs font-medium text-aimed-gray-500">
-                    Upišite <span className="font-bold text-aimed-red">OBRIŠI</span> za potvrdu
+                    Upišite <span className="font-bold text-aimed-red">aimed</span> za potvrdu
                   </label>
                   <input
                     type="text"
                     value={deleteConfirmText}
                     onChange={(e) => setDeleteConfirmText(e.target.value)}
-                    placeholder="OBRIŠI"
+                    placeholder="aimed"
                     autoComplete="off"
                     className="w-full rounded-lg border border-aimed-gray-200 px-3 py-2 text-sm text-aimed-black placeholder:text-aimed-gray-400 outline-none transition-colors duration-200 focus:border-aimed-red"
                   />
@@ -610,7 +610,7 @@ export default function PostavkePage() {
                   <Button variant="secondary" className="flex-1" size="sm" onClick={() => { setShowDeleteAllConfirm(false); setDeleteConfirmText(""); }}>
                     Otkaži
                   </Button>
-                  <Button variant="danger" className="flex-1" size="sm" onClick={handleDeleteAllData} disabled={deleteConfirmText !== "OBRIŠI"}>
+                  <Button variant="danger" className="flex-1" size="sm" onClick={handleDeleteAllData} disabled={deleteConfirmText !== "aimed"}>
                     Obriši sve i odjavi me
                   </Button>
                 </div>

@@ -136,18 +136,10 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
         (s) => !FILTERED_SECTIONS.includes(normalizeTitle(s.title))
       );
 
-      // Doctor's sections first
+      // Strict filtering: only doctor's configured sections appear
       const merged: ReportSection[] = doctorSections.map((title) => {
         const found = filtered.find((s) => normalizeTitle(s.title) === normalizeTitle(title));
         return found ? { title, content: found.content } : { title, content: "" };
-      });
-
-      // Append dynamic sections not in the doctor's list
-      filtered.forEach((s) => {
-        const norm = normalizeTitle(s.title);
-        if (!doctorSections.some((ds) => normalizeTitle(ds) === norm)) {
-          merged.push({ ...s });
-        }
       });
 
       setEditedSections(merged);

@@ -59,7 +59,7 @@ export function ProfileCompletionGate({ children }: { children: React.ReactNode 
           return;
         }
 
-        const hasProfile = data.specialization && data.clinic_name;
+        const hasProfile = !!data.specialization;
         if (hasProfile) {
           markCompleted(user.id);
           syncToLocalStorage(data.full_name, data.specialization, data.clinic_name);

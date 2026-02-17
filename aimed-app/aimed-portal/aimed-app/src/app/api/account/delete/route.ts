@@ -46,6 +46,15 @@ export async function POST() {
   await adminClient.from("doctor_settings").delete().eq("id", user.id);
   await adminClient.from("profiles").delete().eq("id", user.id);
 
+  // Clean up branding files from storage
+  const { data: brandingFiles } = await adminClient.storage
+    .from("branding")
+    .list(user.id);
+  if (brandingFiles && brandingFiles.length > 0) {
+    const filePaths = brandingFiles.map((f) => `${user.id}/${f.name}`);
+    await adminClient.storage.from("branding").remove(filePaths);
+  }
+
   // Hard delete from auth.users — shouldSoftDelete: false ensures the email
   // is freed up so the user can re-register without auth conflicts
   const { error: deleteError } = await adminClient.auth.admin.deleteUser(
