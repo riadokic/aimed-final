@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Shield, Lock, Eye, Database, CheckCircle2 } from "lucide-react";
+import { AiMedLogo } from "@/components/ui/aimed-logo";
 
 export const metadata = {
   title: "GDPR sigurnost — AiMED",
@@ -22,9 +23,9 @@ export default function GDPRSigurnostPage() {
           <div className="flex-1" />
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 bg-black rounded-lg flex items-center justify-center">
-              <span className="text-xs font-bold text-white">A</span>
+              <AiMedLogo variant="monogram" mode="dark" className="w-4 h-4" />
             </div>
-            <span className="text-sm font-semibold text-black">AiMED</span>
+            <AiMedLogo variant="full" mode="light" className="h-4 w-auto" />
           </div>
         </div>
       </header>

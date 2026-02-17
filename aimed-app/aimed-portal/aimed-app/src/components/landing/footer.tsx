@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Stethoscope } from "lucide-react";
+import { AiMedLogo } from "@/components/ui/aimed-logo";
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -18,11 +18,9 @@ export default function AppFooter() {
           <div className="md:col-span-4 space-y-8">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                <Stethoscope className="text-black w-6 h-6" />
+                <AiMedLogo variant="monogram" mode="light" className="w-6 h-6" />
               </div>
-              <span className="text-2xl font-bold tracking-tighter text-white uppercase">
-                AIMED
-              </span>
+              <AiMedLogo variant="full" mode="dark" className="h-6 w-auto" />
             </div>
             <p className="text-zinc-400 text-lg leading-relaxed max-w-sm">
               Digitalizacija medicine na pametan način. Štedimo vrijeme onima

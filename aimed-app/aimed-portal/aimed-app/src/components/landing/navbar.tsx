@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { ChevronDown, Stethoscope, ArrowRight, Menu, X } from "lucide-react";
+import { ChevronDown, ArrowRight, Menu, X } from "lucide-react";
+import { AiMedLogo } from "@/components/ui/aimed-logo";
 
 type NavLink = {
   label: string;
@@ -86,11 +87,9 @@ export default function Navbar() {
               className="flex items-center gap-2 group"
             >
               <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
-                <Stethoscope className="text-white w-4 h-4" />
+                <AiMedLogo variant="monogram" mode="dark" className="w-5 h-5" />
               </div>
-              <span className="text-base font-semibold tracking-tight text-black uppercase">
-                AIMED
-              </span>
+              <AiMedLogo variant="full" mode="light" className="h-5 w-auto" />
             </button>
 
             <div className="hidden md:flex items-center gap-6">
@@ -175,7 +174,12 @@ export default function Navbar() {
         className={`fixed inset-y-0 right-0 z-[201] w-[80%] max-w-sm bg-white shadow-2xl transform transition-transform duration-300 md:hidden ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100">
-          <span className="text-base font-semibold text-black uppercase">AIMED</span>
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 bg-black rounded-lg flex items-center justify-center">
+              <AiMedLogo variant="monogram" mode="dark" className="w-4 h-4" />
+            </div>
+            <AiMedLogo variant="full" mode="light" className="h-4 w-auto" />
+          </div>
           <button
             onClick={() => setMobileOpen(false)}
             className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-zinc-100 transition-colors"
