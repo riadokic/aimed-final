@@ -90,7 +90,7 @@ export default function GDPRSigurnostPage() {
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-black mb-4">1. Pravni okvir i usklađenost</h2>
 
-            <h3 className="text-xl font-semibold text-black mb-3 mt-6">1. GDPR (Opšta uredba o zaštiti podataka)</h3>
+            <h3 className="text-xl font-semibold text-black mb-3 mt-6">1.1. GDPR (Opšta uredba o zaštiti podataka)</h3>
             <p className="text-base text-zinc-600 leading-relaxed mb-4">
               AiMED je u potpunosti usklađen sa EU GDPR-om:
             </p>
@@ -132,8 +132,12 @@ export default function GDPRSigurnostPage() {
                 <p className="text-sm text-zinc-600">Frankfurt data center, automatski SSL</p>
               </div>
               <div className="border-l-4 border-green-500 pl-4">
-                <p className="font-semibold text-black text-sm mb-1">✓ Azure OpenAI (AI obrada)</p>
-                <p className="text-sm text-zinc-600">EU instance, Microsoft DPA ugovor</p>
+                <p className="font-semibold text-black text-sm mb-1">✓ OpenAI Whisper (transkripcija govora)</p>
+                <p className="text-sm text-zinc-600">Audio obrada sa automatskim brisanjem, DPA ugovor</p>
+              </div>
+              <div className="border-l-4 border-green-500 pl-4">
+                <p className="font-semibold text-black text-sm mb-1">✓ Anthropic Claude (AI strukturiranje)</p>
+                <p className="text-sm text-zinc-600">Obrada teksta bez trajnog čuvanja, GDPR usklađen</p>
               </div>
             </div>
 
@@ -319,7 +323,7 @@ export default function GDPRSigurnostPage() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-black mb-4">6. Incident response i breach notification</h2>
+            <h2 className="text-2xl font-bold text-black mb-4">6. Odgovor na incidente i obavještenje o kršenju</h2>
 
             <h3 className="text-xl font-semibold text-black mb-3 mt-6">6.1. Protokol za sigurnosne incidente</h3>
             <p className="text-base text-zinc-600 leading-relaxed mb-4">
@@ -367,13 +371,13 @@ export default function GDPRSigurnostPage() {
             <h3 className="text-xl font-semibold text-black mb-3 mt-6">6.2. Preventivne mjere</h3>
             <ul className="list-disc pl-6 text-base text-zinc-600 space-y-2">
               <li>Penetracijski testovi 2x godišnje</li>
-              <li>Bug bounty program za etičke hakere</li>
-              <li>Security awareness training za tim</li>
+              <li>Program za prijavu sigurnosnih propusta (bug bounty)</li>
+              <li>Obuka tima o sigurnosnoj svijesti</li>
               <li>Redovno ažuriranje sigurnosnih zakrpa</li>
             </ul>
           </section>
 
-          <section className="mb-12">
+          <section id="certifikati" className="mb-12 scroll-mt-24">
             <h2 className="text-2xl font-bold text-black mb-4">7. Certifikati i standardi</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-5 text-center">

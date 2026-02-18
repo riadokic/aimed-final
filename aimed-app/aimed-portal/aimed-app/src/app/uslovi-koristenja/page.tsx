@@ -148,7 +148,7 @@ export default function UsloviKoristenjaPage() {
 
             <h3 className="text-xl font-semibold text-black mb-3 mt-6">6.2. Vaša intelektualna svojina</h3>
             <p className="text-base text-zinc-600 leading-relaxed">
-              Vi zadržavate sva prava na medicinske nalaze koje kreirate. Mi ne polaže pravo na sadržaj koji generiše, ali tražimo ograničenu licencu za obradu i pohranu radi pružanja usluge.
+              Vi zadržavate sva prava na medicinske nalaze koje kreirate. Mi ne polažemo pravo na sadržaj koji generišete, ali tražimo ograničenu licencu za obradu i pohranu radi pružanja usluge.
             </p>
           </section>
 

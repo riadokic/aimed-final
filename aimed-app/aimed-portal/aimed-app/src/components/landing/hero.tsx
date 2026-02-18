@@ -86,8 +86,11 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* Compliance badges */}
-          <div className="mt-10 inline-flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-14">
+          {/* Compliance badges — links to GDPR page section 7 */}
+          <Link
+            href="/gdpr-sigurnost#certifikati"
+            className="mt-10 inline-flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-14 transition-opacity hover:opacity-80"
+          >
             {/* ISO 27001 */}
             <div className="flex items-center gap-2 sm:gap-3">
               <img
@@ -126,7 +129,7 @@ export default function Hero() {
                 <p className="text-[9px] sm:text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">USKLAĐENO</p>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </section>

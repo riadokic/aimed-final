@@ -142,7 +142,8 @@ export default function PolitikaPrivatnostiPage() {
             </p>
             <ul className="list-disc pl-6 text-base text-zinc-600 space-y-2">
               <li><strong>Supabase (hosting baze podataka):</strong> EU certifikovani pružalac usluga cloud hostinga, GDPR usklađen</li>
-              <li><strong>OpenAI / Azure OpenAI:</strong> Za AI transkripciju i NLP obradu (sa enkripcijom i bez trajnog čuvanja)</li>
+              <li><strong>OpenAI Whisper:</strong> Za AI transkripciju govora (sa enkripcijom i automatskim brisanjem audio zapisa)</li>
+              <li><strong>Anthropic Claude:</strong> Za NLP strukturiranje nalaza (bez trajnog čuvanja podataka)</li>
               <li><strong>Vercel (hosting aplikacije):</strong> GDPR usklađena platforma</li>
               <li><strong>Pravni zahtjevi:</strong> Samo kada je zakonom propisano (sudski nalozi, zahtjevi agencija za zaštitu podataka)</li>
             </ul>
