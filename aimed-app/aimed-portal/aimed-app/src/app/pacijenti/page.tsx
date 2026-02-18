@@ -376,6 +376,7 @@ export default function PacijentiPage() {
                                     >
                                       <WordIcon className="h-4 w-4" />
                                     </Button>
+                                    {/* PDF export temporarily disabled
                                     <Button
                                       size="sm"
                                       variant="ghost"
@@ -385,6 +386,7 @@ export default function PacijentiPage() {
                                     >
                                       <DownloadIcon className="h-4 w-4" />
                                     </Button>
+                                    */}
                                     <Button
                                       size="sm"
                                       variant={openReportId === report.id ? "secondary" : "ghost"}
@@ -466,6 +468,7 @@ export default function PacijentiPage() {
                                         <WordIcon className="h-3.5 w-3.5" />
                                         {wordLoading ? "Generišem..." : "Preuzmi Word"}
                                       </Button>
+                                      {/* PDF export temporarily disabled
                                       <Button
                                         size="sm"
                                         onClick={() => handleReportPdf(report, patient)}
@@ -474,6 +477,7 @@ export default function PacijentiPage() {
                                         <DownloadIcon className="h-3.5 w-3.5" />
                                         {pdfLoading ? "Generišem..." : "Preuzmi PDF"}
                                       </Button>
+                                      */}
                                     </div>
                                   </div>
                                 )}

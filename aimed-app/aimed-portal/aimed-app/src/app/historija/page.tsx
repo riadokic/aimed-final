@@ -317,6 +317,7 @@ export default function HistorijaPage() {
                                   >
                                     <WordIcon className="h-3.5 w-3.5" />
                                   </Button>
+                                  {/* PDF export temporarily disabled
                                   <Button
                                     variant="ghost"
                                     size="sm"
@@ -325,6 +326,7 @@ export default function HistorijaPage() {
                                   >
                                     <DownloadIcon className="h-3.5 w-3.5" />
                                   </Button>
+                                  */}
                                   <Button
                                     variant="ghost"
                                     size="sm"
@@ -363,7 +365,7 @@ export default function HistorijaPage() {
                                       )}
                                     </div>
                                     {editingPatientId === entry.patient_id ? (
-                                      <div className="grid grid-cols-3 gap-3">
+                                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                         <div>
                                           <label className="mb-1 block text-xs text-aimed-gray-400">Ime i prezime</label>
                                           <input
@@ -396,7 +398,7 @@ export default function HistorijaPage() {
                                             onChange={(e) => setEditEmail(e.target.value)}
                                           />
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="sm:col-span-3">
                                           <label className="mb-1 block text-xs text-aimed-gray-400">Adresa</label>
                                           <input
                                             className="w-full rounded-lg border border-aimed-gray-200 px-3 py-1.5 text-sm outline-none focus:border-aimed-black"

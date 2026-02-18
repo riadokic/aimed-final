@@ -560,7 +560,7 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
             </div>
           )}
 
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex gap-2">
               <Button variant="secondary" size="sm" className="border border-aimed-gray-200" onClick={handleReRecord}>
                 Pokušaj ponovo
@@ -570,18 +570,20 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
               </Button>
             </div>
             <div className="flex gap-2">
-              <Button variant="secondary" size="sm" onClick={handleCopyForHIS}>
+              <Button variant="secondary" size="sm" onClick={handleCopyForHIS} className="flex-1 sm:flex-none">
                 <ClipboardIcon className="h-3.5 w-3.5" />
                 {copyFeedback ? "Kopirano!" : "Kopiraj za HIS"}
               </Button>
-              <Button variant="secondary" size="sm" onClick={handleDownloadWord} disabled={wordLoading}>
+              <Button variant="secondary" size="sm" onClick={handleDownloadWord} disabled={wordLoading} className="flex-1 sm:flex-none">
                 <WordIcon className="h-3.5 w-3.5" />
                 {wordLoading ? "Generišem..." : "Preuzmi Word"}
               </Button>
+              {/* PDF export temporarily disabled
               <Button size="sm" onClick={handleDownloadPdf} disabled={pdfLoading}>
                 <DownloadIcon className="h-3.5 w-3.5" />
                 {pdfLoading ? "Generišem..." : "Preuzmi PDF"}
               </Button>
+              */}
             </div>
           </div>
 
@@ -608,7 +610,7 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
               )}
             </div>
             {editingPatient ? (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <InputField
                   label="Ime i prezime"
                   placeholder="Unesite ime pacijenta"
@@ -644,11 +646,11 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
                   placeholder="Ul. Maršala Tita 1"
                   value={patientInfo.address || ""}
                   onChange={(v) => handlePatientChange("address", v)}
-                  className="col-span-2"
+                  className="sm:col-span-2"
                 />
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 <div>
                   <p className="text-xs text-aimed-gray-400">Ime i prezime</p>
                   <p className="text-aimed-black">{patientInfo.name || "—"}</p>
@@ -669,7 +671,7 @@ export function DictationFlow({ mode, patient, existingReport, onReset }: Dictat
                   <p className="text-xs text-aimed-gray-400">Email</p>
                   <p className="text-aimed-black">{patientInfo.email || "—"}</p>
                 </div>
-                <div className="col-span-2">
+                <div className="sm:col-span-2">
                   <p className="text-xs text-aimed-gray-400">Adresa</p>
                   <p className="text-aimed-black">{patientInfo.address || "—"}</p>
                 </div>

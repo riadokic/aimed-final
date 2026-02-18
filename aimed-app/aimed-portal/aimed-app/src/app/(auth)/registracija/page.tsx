@@ -12,8 +12,6 @@ export default function RegistracijaPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [specialization, setSpecialization] = useState("");
-  const [clinicName, setClinicName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -48,8 +46,6 @@ export default function RegistracijaPage() {
         emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
         data: {
           full_name: fullName,
-          specialization,
-          clinic_name: clinicName,
         },
       },
     });
@@ -77,8 +73,6 @@ export default function RegistracijaPage() {
     saveSettings({
       ...currentSettings,
       doctorName: fullName || currentSettings.doctorName,
-      specialty: specialization || currentSettings.specialty,
-      clinicName: clinicName || currentSettings.clinicName,
     });
 
     // Store GDPR consent so ConsentGate won't block after first login
@@ -170,37 +164,6 @@ export default function RegistracijaPage() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="mb-1 block text-xs font-medium text-aimed-gray-500">
-                Specijalnost
-              </label>
-              <input
-                type="text"
-                value={specialization}
-                onChange={(e) => setSpecialization(e.target.value)}
-                placeholder="Internista"
-                className={inputClass}
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-aimed-gray-500">
-                Klinika
-              </label>
-              <input
-                type="text"
-                value={clinicName}
-                onChange={(e) => setClinicName(e.target.value)}
-                placeholder="Opća bolnica"
-                className={inputClass}
-              />
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="border-t border-aimed-gray-200" />
-
-          {/* Auth fields */}
           <div>
             <label className="mb-1 block text-xs font-medium text-aimed-gray-500">
               Email
