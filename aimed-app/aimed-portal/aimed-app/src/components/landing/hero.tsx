@@ -5,7 +5,7 @@ import { ArrowRight, Mic, FileText, LogIn } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-12 md:pt-56 md:pb-32 px-6 overflow-hidden radial-glow selection:bg-black selection:text-white">
+    <section className="relative pt-28 pb-12 md:pt-36 md:pb-20 px-6 overflow-hidden radial-glow selection:bg-black selection:text-white">
       {/* Side Decorative Portal Hints */}
       <div className="absolute inset-0 pointer-events-none hidden lg:block">
         {/* Left Hint - Audio In Activity */}
@@ -48,12 +48,10 @@ export default function Hero() {
       </div>
 
       <div className="max-w-4xl mx-auto text-center space-y-8 md:space-y-12 relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 bg-white shadow-sm animate-reveal max-w-full overflow-hidden">
-          <span className="flex h-2 w-2 rounded-full bg-blue-500 shrink-0"></span>
+        <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-zinc-200 bg-white shadow-sm animate-reveal max-w-full overflow-hidden">
           <span className="text-[9px] md:text-[12px] font-semibold text-zinc-600 uppercase tracking-widest truncate">
             Inteligentna medicinska dokumentacija
           </span>
-          <ArrowRight className="w-3 h-3 text-zinc-400 shrink-0" />
         </div>
 
         <div className="space-y-3 md:space-y-6">
@@ -89,43 +87,43 @@ export default function Hero() {
           </div>
 
           {/* Compliance badges */}
-          <div className="mt-12 inline-flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
+          <div className="mt-10 inline-flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-14">
             {/* ISO 27001 */}
-            <div className="group flex items-center gap-3 cursor-default">
+            <div className="flex items-center gap-2 sm:gap-3">
               <img
                 src="https://www.globalspedition.com/wp-content/uploads/2023/09/Logo-ISO-27001.png"
                 alt="ISO 27001"
-                className="h-9 w-9 object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                className="h-7 w-7 sm:h-9 sm:w-9 object-contain"
               />
               <div className="text-left">
-                <p className="text-[13px] font-bold text-zinc-500 leading-none tracking-wide">ISO</p>
-                <p className="text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">27001:2022</p>
+                <p className="text-[11px] sm:text-[13px] font-bold text-zinc-500 leading-none tracking-wide">ISO</p>
+                <p className="text-[9px] sm:text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">27001:2022</p>
               </div>
             </div>
 
             {/* GDPR */}
-            <div className="group flex items-center gap-3 cursor-default">
+            <div className="flex items-center gap-2 sm:gap-3">
               <img
                 src="https://www.loginradius.com/assets/compliance/gdpr-compliant/gdpr-compliant.webp"
                 alt="GDPR Compliant"
-                className="h-9 w-auto object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                className="h-7 w-auto sm:h-9 object-contain"
               />
               <div className="text-left">
-                <p className="text-[13px] font-bold text-zinc-500 leading-none tracking-wide">GDPR</p>
-                <p className="text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">COMPLIANT</p>
+                <p className="text-[11px] sm:text-[13px] font-bold text-zinc-500 leading-none tracking-wide">GDPR</p>
+                <p className="text-[9px] sm:text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">COMPLIANT</p>
               </div>
             </div>
 
             {/* ZZLP BiH */}
-            <div className="group flex items-center gap-3 cursor-default">
+            <div className="flex items-center gap-2 sm:gap-3">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Bosnia_and_Herzegovina_Coats_of_Arms.png"
                 alt="BiH grb"
-                className="h-9 w-auto object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                className="h-7 w-auto sm:h-9 object-contain"
               />
               <div className="text-left">
-                <p className="text-[13px] font-bold text-zinc-500 leading-none tracking-wide">ZZLP</p>
-                <p className="text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">USKLAĐENO</p>
+                <p className="text-[11px] sm:text-[13px] font-bold text-zinc-500 leading-none tracking-wide">ZZLP</p>
+                <p className="text-[9px] sm:text-[11px] font-medium text-zinc-400 leading-none tracking-wide mt-0.5">USKLAĐENO</p>
               </div>
             </div>
           </div>

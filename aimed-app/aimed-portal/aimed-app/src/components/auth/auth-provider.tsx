@@ -51,10 +51,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function signInWithGoogle() {
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+        redirectTo: `${siteUrl}/auth/callback?next=/dashboard`,
         queryParams: {
           access_type: "offline",
           prompt: "select_account",

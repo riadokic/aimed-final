@@ -128,8 +128,7 @@ export default function BentoGrid() {
                   Privatnost po dizajnu.
                 </h4>
                 <p className="text-zinc-400 text-base sm:text-lg leading-relaxed">
-                  Glasovni zapisi se brišu odmah nakon obrade. Podaci ostaju u
-                  vašem browseru. GDPR usklađenost Član 9.
+                  Glasovni zapisi se brišu odmah nakon obrade. GDPR usklađenost Član 9.
                 </p>
               </div>
               <div className="relative h-full min-h-[160px] md:min-h-[200px] flex items-center justify-center">

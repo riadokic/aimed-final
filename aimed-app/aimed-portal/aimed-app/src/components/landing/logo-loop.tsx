@@ -91,11 +91,11 @@ export default function LogoLoop({
                   <img
                     src={logo.src}
                     alt={logo.alt}
-                    className="h-10 w-auto opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500 ease-in-out cursor-pointer"
+                    className="h-10 w-auto transition-all duration-500 ease-in-out cursor-pointer"
                   />
                 )}
                 {logo.title && (
-                  <span className="text-sm font-bold tracking-tighter text-zinc-400 hover:text-black uppercase transition-all duration-500">
+                  <span className="text-sm font-bold tracking-tighter text-zinc-600 uppercase transition-all duration-500">
                     {logo.title}
                   </span>
                 )}

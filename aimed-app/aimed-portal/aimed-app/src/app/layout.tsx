@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://aimed.ba"),
   title: {
-    default: "AiMED — AI Medicinska Diktacija",
+    default: "AiMED - AI diktiranje nalaza",
     template: "%s | AiMED",
   },
   description:
@@ -30,14 +30,14 @@ export const metadata: Metadata = {
     locale: "bs_BA",
     url: "https://aimed.ba",
     siteName: "AiMED",
-    title: "AiMED — AI Medicinska Diktacija",
+    title: "AiMED - AI diktiranje nalaza",
     description:
       "Pretvorite glasovni diktat u strukturirani medicinski nalaz za manje od 60 sekundi.",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "AiMED" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AiMED — AI Medicinska Diktacija",
+    title: "AiMED - AI diktiranje nalaza",
     description:
       "Pretvorite glasovni diktat u strukturirani medicinski nalaz za manje od 60 sekundi.",
     images: ["/og-image.png"],
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
       { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
   },
