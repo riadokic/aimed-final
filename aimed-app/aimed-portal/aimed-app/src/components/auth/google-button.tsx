@@ -18,24 +18,14 @@ export function GoogleButton({ label = "Nastavi sa Google-om" }: { label?: strin
     };
 
     return (
-        <>
-            {loading && (
-                <div className="fixed inset-0 z-[999] flex items-center justify-center bg-white/80 backdrop-blur-sm">
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="h-8 w-8 animate-spin rounded-full border-2 border-aimed-gray-200 border-t-aimed-black" />
-                        <p className="text-sm font-medium text-aimed-gray-500">Povezivanje sa Google-om...</p>
-                    </div>
-                </div>
-            )}
-            <button
-                onClick={handleGoogleSignIn}
-                disabled={loading}
-                className="flex w-full items-center justify-center gap-3 rounded-lg border border-aimed-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-aimed-black transition-all duration-200 hover:bg-aimed-gray-50 disabled:opacity-50"
-            >
-                <GoogleIcon className="h-5 w-5" />
-                {loading ? "Povezivanje..." : label}
-            </button>
-        </>
+        <button
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className="flex w-full items-center justify-center gap-3 rounded-lg border border-aimed-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-aimed-black transition-all duration-200 hover:bg-aimed-gray-50 disabled:opacity-50"
+        >
+            <GoogleIcon className="h-5 w-5" />
+            {loading ? "Povezivanje..." : label}
+        </button>
     );
 }
 
