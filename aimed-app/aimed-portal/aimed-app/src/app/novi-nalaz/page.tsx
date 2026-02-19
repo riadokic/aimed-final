@@ -152,7 +152,7 @@ function NoviNalazContent() {
                     )}
                   >
                     {mode === m.key && (
-                      <div className="h-2.5 w-2.5 rounded-full bg-aimed-black" />
+                      <div className="h-2.5 w-2.5 rounded-full bg-aimed-accent" />
                     )}
                   </div>
                   <p className="text-sm font-semibold text-aimed-black">{m.label}</p>
@@ -239,7 +239,7 @@ function NewModeFlow({
           Promijeni podatke
         </button>
         <button
-          className="w-full max-w-xs rounded-lg bg-aimed-black px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900"
+          className="w-full max-w-xs rounded-lg bg-aimed-accent px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
           onClick={onStart}
         >
           Započni diktiranje
@@ -321,7 +321,7 @@ function UpdateModeFlow({
           </button>
         </div>
         <button
-          className="w-full max-w-xs rounded-lg bg-aimed-black px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900"
+          className="w-full max-w-xs rounded-lg bg-aimed-accent px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
           onClick={onStart}
         >
           Diktiraj izmjene
@@ -547,7 +547,7 @@ function ReportSelector({
                       ))}
                     <button
                       onClick={() => onSelect(r)}
-                      className="w-full rounded-lg bg-aimed-black px-4 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900"
+                      className="w-full rounded-lg bg-aimed-accent px-4 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
                     >
                       Odaberi ovaj nalaz
                     </button>

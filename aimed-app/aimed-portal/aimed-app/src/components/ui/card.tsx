@@ -10,7 +10,7 @@ interface CardProps {
 
 const variantStyles: Record<CardVariant, string> = {
   default: "border border-aimed-gray-200 bg-aimed-white",
-  dark: "bg-aimed-gray-900 text-white border-0",
+  dark: "bg-aimed-accent text-white border-0",
   interactive: "border border-aimed-gray-200 bg-aimed-white hover:border-aimed-gray-400 cursor-pointer",
 };
 

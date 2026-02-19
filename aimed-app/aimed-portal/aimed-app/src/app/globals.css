@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   /* Grayscale — 95% of the interface */
   --color-aimed-black: #1a1a1a;
@@ -11,6 +13,10 @@
   --color-aimed-gray-100: #f3f4f6;
   --color-aimed-gray-50: #f9fafb;
   --color-aimed-white: #ffffff;
+
+  /* Accent — always dark, never swaps (logos, CTA buttons) */
+  --color-aimed-accent: #1a1a1a;
+  --color-aimed-accent-hover: #2d2d2d;
 
   /* Status — sparingly, only for meaning */
   --color-aimed-red: #dc2626;
@@ -25,6 +31,32 @@
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* ─── Dark Mode — Medical Dark Tech palette ─── */
+.dark {
+  /* Backgrounds — deep navy & slate grays */
+  --color-aimed-white: #0d1117;
+  --color-aimed-gray-50: #161b22;
+  --color-aimed-gray-100: #1c2128;
+
+  /* Borders */
+  --color-aimed-gray-200: #30363d;
+
+  /* Text — inverted for readability */
+  --color-aimed-gray-400: #6e7681;
+  --color-aimed-gray-500: #8b949e;
+  --color-aimed-gray-700: #c9d1d9;
+  --color-aimed-gray-900: #e6edf3;
+  --color-aimed-black: #f0f6fc;
+
+  /* Status — muted for dark backgrounds */
+  --color-aimed-red-light: #2d1b1b;
+  --color-aimed-green-light: #1b2d1f;
+  --color-aimed-amber-light: #2d2a1b;
+  --color-aimed-blue-light: #1b2340;
+
+  /* Accent stays dark — intentionally not overridden */
+}
+
 html {
   -webkit-overflow-scrolling: touch;
 }
@@ -35,6 +67,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 /* Recording red dot glow */
@@ -90,6 +123,12 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #d4d4d8;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #30363d;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
 }
 
 /* Hero float */
@@ -152,4 +191,7 @@ body {
 .bg-dot-grid {
   background-image: radial-gradient(circle, #e4e4e7 1px, transparent 1px);
   background-size: 24px 24px;
+}
+.dark .bg-dot-grid {
+  background-image: radial-gradient(circle, #30363d 1px, transparent 1px);
 }

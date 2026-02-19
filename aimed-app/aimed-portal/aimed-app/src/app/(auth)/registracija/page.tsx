@@ -43,7 +43,7 @@ export default function RegistracijaPage() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/auth/callback?next=/dashboard`,
         data: {
           full_name: fullName,
         },
@@ -87,7 +87,7 @@ export default function RegistracijaPage() {
       <div className="w-full max-w-sm">
         <div className="mb-8 flex justify-center">
           <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-accent">
               <span className="text-sm font-bold text-white">A</span>
             </div>
             <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
@@ -135,7 +135,7 @@ export default function RegistracijaPage() {
 
       <div className="mb-8 flex justify-center">
         <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-accent">
             <span className="text-sm font-bold text-white">A</span>
           </div>
           <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
@@ -246,7 +246,7 @@ export default function RegistracijaPage() {
           <button
             type="submit"
             disabled={loading || !gdprAccepted}
-            className="rounded-lg bg-aimed-black px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900 disabled:opacity-50"
+            className="rounded-lg bg-aimed-accent px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover disabled:opacity-50"
           >
             {loading ? "Registracija..." : "Registrujte se"}
           </button>

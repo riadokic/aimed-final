@@ -88,7 +88,7 @@ export default function HomePage() {
               </div>
               <Link
                 href="/novi-nalaz"
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-aimed-black px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-aimed-accent px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
               >
                 Započni diktiranje
               </Link>

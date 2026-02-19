@@ -33,7 +33,7 @@ export function ConsentGate({ children }: { children: React.ReactNode }) {
         {/* Logo */}
         <div className="mb-8 flex justify-center">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-accent">
               <span className="text-sm font-bold text-white">A</span>
             </div>
             <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
@@ -124,7 +124,7 @@ export function ConsentGate({ children }: { children: React.ReactNode }) {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={handleAccept}
-                    className="flex-1 rounded-lg bg-aimed-black px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900"
+                    className="flex-1 rounded-lg bg-aimed-accent px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
                   >
                     Prihvatam
                   </button>

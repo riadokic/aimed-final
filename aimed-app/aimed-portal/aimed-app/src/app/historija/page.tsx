@@ -219,7 +219,7 @@ export default function HistorijaPage() {
                   key={opt.key}
                   onClick={() => setPeriodFilter(opt.key)}
                   className={`rounded-lg px-3.5 py-2 text-xs font-medium transition-colors duration-200 ${periodFilter === opt.key
-                    ? "bg-aimed-black text-white"
+                    ? "bg-aimed-accent text-white"
                     : "bg-aimed-white text-aimed-gray-500 border border-aimed-gray-200 hover:border-aimed-gray-400"
                     }`}
                 >
@@ -248,7 +248,7 @@ export default function HistorijaPage() {
               {!search && periodFilter === "svi" && (
                 <Link
                   href="/novi-nalaz"
-                  className="rounded-lg bg-aimed-black px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-gray-900"
+                  className="rounded-lg bg-aimed-accent px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
                 >
                   + Novi nalaz
                 </Link>

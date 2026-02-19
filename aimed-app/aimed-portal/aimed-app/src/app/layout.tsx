@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "@/components/auth/auth-provider";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 import { AppShell } from "@/components/layout/app-shell";
 import { ToastContainer } from "@/components/ui/toast";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -62,13 +63,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="bs">
+    <html lang="bs" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <JsonLd />
-        <AuthProvider>
-          <AppShell>{children}</AppShell>
-          <ToastContainer />
-        </AuthProvider>
+        <ThemeProvider>
+          <JsonLd />
+          <AuthProvider>
+            <AppShell>{children}</AppShell>
+            <ToastContainer />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

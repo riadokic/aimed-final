@@ -283,7 +283,7 @@ function OnboardingWizard({ userId, initial, onComplete }: WizardProps) {
         {/* Logo */}
         <div className="mb-6 flex justify-center">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-black">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aimed-accent">
               <span className="text-sm font-bold text-white">A</span>
             </div>
             <span className="text-xl font-semibold text-aimed-black tracking-tight">AiMED</span>
@@ -297,9 +297,9 @@ function OnboardingWizard({ userId, initial, onComplete }: WizardProps) {
               key={i}
               className={`h-2 rounded-full transition-all duration-300 ${
                 i + 1 === step
-                  ? "w-6 bg-aimed-black"
+                  ? "w-6 bg-aimed-accent"
                   : i + 1 < step
-                    ? "w-2 bg-aimed-black"
+                    ? "w-2 bg-aimed-accent"
                     : "w-2 bg-aimed-gray-200"
               }`}
             />
