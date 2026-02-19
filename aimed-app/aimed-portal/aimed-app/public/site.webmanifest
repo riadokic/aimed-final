@@ -1,5 +1,5 @@
 {
-  "name": "AiMED — AI Medicinska Diktacija",
+  "name": "AiMED – AI diktiranje nalaza",
   "short_name": "AiMED",
   "description": "Pretvorite glasovni diktat u strukturirani medicinski nalaz za manje od 60 sekundi.",
   "start_url": "/",

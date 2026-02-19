@@ -76,7 +76,10 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
-      "position": [-464, 336],
+      "position": [
+        -464,
+        336
+      ],
       "id": "e44f90a3-6837-443d-a983-b40d00e322e5",
       "name": "Webhook",
       "webhookId": "aimed-transcribe-v2"
@@ -92,7 +95,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 2.1,
-      "position": [-192, 336],
+      "position": [
+        -192,
+        336
+      ],
       "id": "56123641-206e-45d4-9a05-15554761de20",
       "name": "Whisper Transkripcija"
     },
@@ -102,7 +108,10 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [-40, 336],
+      "position": [
+        -40,
+        336
+      ],
       "id": "build-claude-request-node",
       "name": "Build Claude Request"
     },
@@ -115,8 +124,14 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "anthropic-version", "value": "2023-06-01" },
-            { "name": "content-type", "value": "application/json" }
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
           ]
         },
         "sendBody": true,
@@ -126,7 +141,10 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
-      "position": [200, 336],
+      "position": [
+        200,
+        336
+      ],
       "id": "78c5a8d2-6fbb-46c8-b4bf-e26b99c9cd07",
       "name": "Claude - JSON Extraction"
     },
@@ -136,7 +154,10 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [440, 336],
+      "position": [
+        440,
+        336
+      ],
       "id": "9e1bdbbf-3df1-49b6-852b-be921e943382",
       "name": "Parse JSON Response"
     },
@@ -148,7 +169,10 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
-      "position": [680, 336],
+      "position": [
+        680,
+        336
+      ],
       "id": "0eeb0f23-2f7e-485f-a7df-f30cb50ce809",
       "name": "Respond with JSON"
     }
