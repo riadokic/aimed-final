@@ -2,7 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
+@theme {
   /* Grayscale — 95% of the interface */
   --color-aimed-black: #1a1a1a;
   --color-aimed-gray-900: #2d2d2d;
@@ -31,30 +31,41 @@
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* ─── Dark Mode — Medical Dark Tech palette ─── */
+/* ─── Dark Mode — Pure Monochromatic (Zinc scale) ─── */
 .dark {
-  /* Backgrounds — deep navy & slate grays */
-  --color-aimed-white: #0d1117;
-  --color-aimed-gray-50: #161b22;
-  --color-aimed-gray-100: #1c2128;
+  color-scheme: dark;
 
-  /* Borders */
-  --color-aimed-gray-200: #30363d;
+  /* Elevation stack — black → graphite → zinc */
+  --color-aimed-gray-50: #09090B;     /* Level 0: app body */
+  --color-aimed-white: #18181B;       /* Level 2: cards, forms, modals */
+  --color-aimed-gray-100: #1F1F23;    /* Hover / active / pressed */
 
-  /* Text — inverted for readability */
-  --color-aimed-gray-400: #6e7681;
-  --color-aimed-gray-500: #8b949e;
-  --color-aimed-gray-700: #c9d1d9;
-  --color-aimed-gray-900: #e6edf3;
-  --color-aimed-black: #f0f6fc;
+  /* Borders — subtle, low-opacity feel */
+  --color-aimed-gray-200: #27272A;
 
-  /* Status — muted for dark backgrounds */
-  --color-aimed-red-light: #2d1b1b;
-  --color-aimed-green-light: #1b2d1f;
-  --color-aimed-amber-light: #2d2a1b;
-  --color-aimed-blue-light: #1b2340;
+  /* Text hierarchy — anti-fatigue */
+  --color-aimed-gray-400: #52525B;    /* Placeholders / disabled */
+  --color-aimed-gray-500: #71717A;    /* Labels / secondary */
+  --color-aimed-gray-700: #A1A1AA;    /* Body text */
+  --color-aimed-gray-900: #D4D4D8;    /* Subheadings */
+  --color-aimed-black: #F4F4F5;       /* Primary text (off-white) */
 
-  /* Accent stays dark — intentionally not overridden */
+  /* Accent — monochrome gray (logos, decorative elements) */
+  --color-aimed-accent: #27272A;
+  --color-aimed-accent-hover: #3F3F46;
+
+  /* Status — muted on black */
+  --color-aimed-red-light: #1C1214;
+  --color-aimed-green-light: #0F1A13;
+  --color-aimed-amber-light: #1A1812;
+  --color-aimed-blue-light: #131315;
+}
+
+/* Ensure native form elements respect dark surface */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--color-aimed-white);
 }
 
 html {
@@ -67,7 +78,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 200ms ease, color 200ms ease;
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 /* Recording red dot glow */
@@ -125,10 +136,10 @@ body {
   background: #d4d4d8;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #30363d;
+  background: #27272A;
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #484f58;
+  background: #3F3F46;
 }
 
 /* Hero float */
@@ -193,5 +204,5 @@ body {
   background-size: 24px 24px;
 }
 .dark .bg-dot-grid {
-  background-image: radial-gradient(circle, #30363d 1px, transparent 1px);
+  background-image: radial-gradient(circle, #27272A 1px, transparent 1px);
 }

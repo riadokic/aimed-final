@@ -47,7 +47,7 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile header bar */}
-      <div className="fixed inset-x-0 top-0 z-40 flex h-[72px] items-center gap-3 border-b border-aimed-gray-200 bg-aimed-white px-4 lg:hidden">
+      <div className="fixed inset-x-0 top-0 z-40 flex h-[72px] items-center gap-3 border-b border-aimed-gray-200 bg-aimed-white dark:bg-[#0F0F11] px-4 transition-colors duration-300 lg:hidden">
         <button
           onClick={() => setMobileOpen(true)}
           className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-aimed-gray-100 transition-colors"
@@ -74,7 +74,7 @@ export function Sidebar() {
       {/* Sidebar — desktop: fixed, mobile: drawer */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r border-aimed-gray-200 bg-aimed-white transition-transform duration-300",
+          "fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r border-aimed-gray-200 bg-aimed-white dark:bg-[#0F0F11] transition-all duration-300",
           "lg:translate-x-0 lg:z-30",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}

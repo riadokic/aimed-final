@@ -90,6 +90,11 @@ async function submitOnce(options: SubmitOptions): Promise<AimedApiResponse> {
 
     const data: AimedApiResponse = await response.json();
 
+    // Handle explicit error responses (e.g. silence guardrail)
+    if (!data.success && data.error) {
+      throw new AimedApiError(data.message || ERROR_MESSAGES.EMPTY, false);
+    }
+
     // Validate: need either sections or report_text
     if (data.success && data.sections) {
       return data;

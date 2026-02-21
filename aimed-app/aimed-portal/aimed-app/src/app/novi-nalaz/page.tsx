@@ -239,7 +239,7 @@ function NewModeFlow({
           Promijeni podatke
         </button>
         <button
-          className="w-full max-w-xs rounded-lg bg-aimed-accent px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
+          className="w-full max-w-xs rounded-xl bg-aimed-accent px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-aimed-accent-hover dark:bg-white dark:text-[#09090B] dark:hover:bg-[#E4E4E7]"
           onClick={onStart}
         >
           Započni diktiranje
@@ -321,7 +321,7 @@ function UpdateModeFlow({
           </button>
         </div>
         <button
-          className="w-full max-w-xs rounded-lg bg-aimed-accent px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
+          className="w-full max-w-xs rounded-xl bg-aimed-accent px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-aimed-accent-hover dark:bg-white dark:text-[#09090B] dark:hover:bg-[#E4E4E7]"
           onClick={onStart}
         >
           Diktiraj izmjene
@@ -379,7 +379,7 @@ function PatientSearch({ onSelect }: { onSelect: (p: Patient) => void }) {
         placeholder="Pretražite po imenu ili JMBG..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="w-full rounded-lg border border-aimed-gray-200 px-4 py-2.5 text-sm text-aimed-black placeholder:text-aimed-gray-400 outline-none transition-colors duration-200 focus:border-aimed-black mb-4"
+        className="w-full rounded-xl border border-aimed-gray-200 bg-aimed-white px-4 py-2.5 text-sm text-aimed-black placeholder:text-aimed-gray-400 outline-none transition-colors duration-300 focus:border-aimed-black mb-4"
         autoFocus
       />
 
@@ -547,7 +547,7 @@ function ReportSelector({
                       ))}
                     <button
                       onClick={() => onSelect(r)}
-                      className="w-full rounded-lg bg-aimed-accent px-4 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
+                      className="w-full rounded-xl bg-aimed-accent px-4 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-aimed-accent-hover"
                     >
                       Odaberi ovaj nalaz
                     </button>

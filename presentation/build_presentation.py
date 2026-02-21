@@ -391,8 +391,8 @@ def build_slide_02(prs):
         slide, card_left + Inches(0.35), card1_top + Inches(0.25),
         card_width - Inches(0.7), card_height - Inches(0.4),
         lines=[
-            {'text': '26\u201327%', 'font_size': Pt(48), 'font_color': NEAR_BLACK, 'bold': True, 'line_spacing': 1.1},
-            {'text': 'radnog vremena na dokumentaciju (13,5\u201315 h sedmično)', 'font_size': Pt(13), 'font_color': ZINC_600, 'line_spacing': 1.4, 'space_before': Pt(4)},
+            {'text': '~27%', 'font_size': Pt(48), 'font_color': NEAR_BLACK, 'bold': True, 'line_spacing': 1.1},
+            {'text': 'radnog vremena na dokumentaciju (~15 h sedmično) ¹', 'font_size': Pt(13), 'font_color': ZINC_600, 'line_spacing': 1.4, 'space_before': Pt(4)},
         ]
     )
 
@@ -404,8 +404,8 @@ def build_slide_02(prs):
         slide, card_left + Inches(0.4), card2_top + Inches(0.25),
         card_width - Inches(0.8), card_height - Inches(0.4),
         lines=[
-            {'text': '+1,7\u20131,8 h/dan', 'font_size': Pt(48), 'font_color': WHITE, 'bold': True, 'line_spacing': 1.1},
-            {'text': 'dokumentacije nakon radnog vremena', 'font_size': Pt(13), 'font_color': ZINC_400, 'line_spacing': 1.4, 'space_before': Pt(4)},
+            {'text': '+1,8 h/dan', 'font_size': Pt(48), 'font_color': WHITE, 'bold': True, 'line_spacing': 1.1},
+            {'text': 'dokumentacije izvan ordinirajućeg vremena ²', 'font_size': Pt(13), 'font_color': ZINC_400, 'line_spacing': 1.4, 'space_before': Pt(4)},
         ]
     )
 
@@ -417,8 +417,8 @@ def build_slide_02(prs):
         slide, card_left + Inches(0.35), card3_top + Inches(0.25),
         card_width - Inches(0.7), card_height - Inches(0.4),
         lines=[
-            {'text': '54%', 'font_size': Pt(48), 'font_color': NEAR_BLACK, 'bold': True, 'line_spacing': 1.1},
-            {'text': 'ljekara s burnout simptomima \u2014 dokumentacija gl. faktor (JAMA 2023)', 'font_size': Pt(13), 'font_color': ZINC_600, 'line_spacing': 1.4, 'space_before': Pt(4)},
+            {'text': '53%', 'font_size': Pt(48), 'font_color': NEAR_BLACK, 'bold': True, 'line_spacing': 1.1},
+            {'text': 'ljekara s burnout simptomima \u2014 administracija faktor #1 (Medscape 2023) ³', 'font_size': Pt(13), 'font_color': ZINC_600, 'line_spacing': 1.4, 'space_before': Pt(4)},
         ]
     )
 
@@ -455,7 +455,7 @@ def build_slide_03(prs):
                                Inches(6.5), Inches(0.3), fill_color=NEAR_BLACK)
     eu_bar.adjustments[0] = 0.5
     add_text_box(slide, bar_left + Inches(9.5), bar_top, Inches(3.5), Inches(0.35),
-                 text="3,7 ljekara / 1.000 stan. (Eurostat 2022)", font_size=Pt(13), font_color=ZINC_600)
+                 text="3,9 ljekara / 1.000 stan. (Eurostat 2023)", font_size=Pt(13), font_color=ZINC_600)
 
     # BiH bar
     bih_top = bar_top + Inches(0.6)
@@ -465,7 +465,7 @@ def build_slide_03(prs):
                                 Inches(3.5), Inches(0.3), fill_color=ZINC_300)
     bih_bar.adjustments[0] = 0.5
     add_text_box(slide, bar_left + Inches(6.5), bih_top, Inches(5.5), Inches(0.35),
-                 text="~2,0 ljekara / 1.000 stan.  \u2190 46% manje", font_size=Pt(13), font_color=ZINC_600)
+                 text="~2,1 ljekara / 1.000 stan.  \u2190 skoro 50% manje", font_size=Pt(13), font_color=ZINC_600)
 
     # Bottom stats + narrative (synced from pitchdeck)
     col_top = Inches(4.4)
@@ -483,8 +483,8 @@ def build_slide_03(prs):
     add_multiline_text(
         slide, Inches(4.2), col_top, Inches(3.5), Inches(1.0),
         lines=[
-            {'text': '746', 'font_size': Pt(48), 'font_color': NEAR_BLACK, 'bold': True, 'line_spacing': 1.1},
-            {'text': 'ljekara porod. medicine \u2014 nedostaje ~50% (RTVBN 2023)', 'font_size': Pt(13), 'font_color': ZINC_600, 'line_spacing': 1.4},
+            {'text': '~750', 'font_size': Pt(48), 'font_color': NEAR_BLACK, 'bold': True, 'line_spacing': 1.1},
+            {'text': 'ljekara porod. medicine \u2014 deficit ~50% (ZZJZFBIH / RTVBN 2023)', 'font_size': Pt(13), 'font_color': ZINC_600, 'line_spacing': 1.4},
         ]
     )
 

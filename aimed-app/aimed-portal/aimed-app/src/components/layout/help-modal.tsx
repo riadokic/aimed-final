@@ -135,8 +135,9 @@ export function HelpModal({ open, onClose }: HelpModalProps) {
       {/* Modal */}
       <div
         className={cn(
-          "relative w-full max-w-lg rounded-2xl border border-aimed-gray-200 shadow-2xl",
+          "relative w-full max-w-lg rounded-3xl border border-aimed-gray-200 shadow-2xl transition-all duration-300",
           "bg-aimed-white/95 dark:bg-aimed-white/90 backdrop-blur-xl",
+          "dark:shadow-[0_8px_40px_rgba(0,0,0,0.5)]",
           "animate-reveal"
         )}
       >

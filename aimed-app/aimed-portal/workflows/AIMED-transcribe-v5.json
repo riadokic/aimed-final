@@ -1,0 +1,444 @@
+{
+  "name": "AIMED-transcribe-v5",
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "all"
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "AIMED-transcribe-v5",
+        "responseMode": "responseNode",
+        "options": {
+          "binaryPropertyName": "audio",
+          "rawBody": false
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -600,
+        340
+      ],
+      "id": "wh-001",
+      "name": "Webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.elevenlabs.io/v1/speech-to-text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "multipartFormData",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "audio0"
+            },
+            {
+              "parameterType": "formData",
+              "name": "model_id",
+              "value": "scribe_v2"
+            },
+            {
+              "parameterType": "formData",
+              "name": "language_code",
+              "value": "hr"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000,
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -350,
+        340
+      ],
+      "id": "el-001",
+      "name": "ElevenLabs Scribe v2",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ELEVENLABS_CREDENTIAL_ID",
+          "name": "ElevenLabs API"
+        }
+      },
+      "notes": "Credential: httpHeaderAuth → Name: 'xi-api-key', Value: 'YOUR_ELEVENLABS_API_KEY'"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// AIMED v5 — Silence Guardrail\n// Detects empty, silent, or ambient-noise-only recordings.\n// Prevents AI from hallucinating content for empty audio.\n// ═══════════════════════════════════════════════════════════\n\nconst elResponse = $json;\nconst transcript = (elResponse.text || '').trim();\nconst confidence = elResponse.language_probability || 0;\nconst words = elResponse.words || [];\n\n// ElevenLabs doesn't return duration directly — estimate from last word\nconst lastWord = words.length > 0 ? words[words.length - 1] : null;\nconst duration = lastWord ? (lastWord.end || 0) : 0;\n\nlet isSilence = false;\nlet silenceReason = null;\n\n// 1. Completely empty transcript\nif (!transcript || transcript.length === 0) {\n  isSilence = true;\n  silenceReason = 'Nije detektovan govor u snimku. Molimo pokušajte ponovo.';\n}\n\n// 2. Too short — less than 10 meaningful characters\nelse if (transcript.replace(/[\\s.,!?;:'\"()\\-]/g, '').length < 10) {\n  isSilence = true;\n  silenceReason = 'Snimak sadrži premalo govora za obradu. Molimo diktirajte duže.';\n}\n\n// 3. Very low confidence — unintelligible audio\nelse if (confidence > 0 && confidence < 0.25) {\n  isSilence = true;\n  silenceReason = 'Kvalitet snimka je prenizak za pouzdanu transkripciju. Provjerite mikrofon.';\n}\n\n// 4. Only filler words / ambient noise / non-medical chatter\nelse {\n  const fillerOnly = /^[\\s]*(hm+|um+|uh+|ah+|eh+|oh+|mm+|ok|okej|da|ne|ovaj|znači|jel|ej|hej|halo|\\.{2,}|[,.\\s!?])+[\\s]*$/i;\n  if (fillerOnly.test(transcript)) {\n    isSilence = true;\n    silenceReason = 'Detektovane su samo popunjenice bez medicinskog sadržaja. Molimo diktirajte nalaz.';\n  }\n}\n\n// 5. Long recording with almost no recognized words\nif (!isSilence && duration > 5 && words.length < 3) {\n  isSilence = true;\n  silenceReason = `Snimak od ${Math.round(duration)} sekundi sadrži samo ${words.length} prepoznate riječi. Provjerite mikrofon i okolnu buku.`;\n}\n\nreturn {\n  ...elResponse,\n  _guardrail: {\n    isSilence,\n    silenceReason,\n    transcriptLength: transcript.length,\n    wordCount: words.length,\n    confidence,\n    duration: Math.round(duration * 10) / 10\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -100,
+        340
+      ],
+      "id": "guard-001",
+      "name": "Silence Guardrail"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": ""
+          },
+          "conditions": [
+            {
+              "id": "speech-check",
+              "leftValue": "={{ $json._guardrail.isSilence }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        100,
+        340
+      ],
+      "id": "if-001",
+      "name": "Has Speech?"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// AIMED v5 — Silence Error Response\n// Returns a structured error when no speech is detected.\n// Frontend displays this as a user-friendly message.\n// ═══════════════════════════════════════════════════════════\n\nconst guardrail = $json._guardrail;\n\nreturn {\n  success: false,\n  error: 'NO_SPEECH_DETECTED',\n  message: guardrail.silenceReason || 'Nije detektovan govor. Molimo pokušajte ponovo.',\n  sections: {},\n  metadata: {\n    generatedAt: new Date().toISOString(),\n    datumNalaza: new Date().toLocaleDateString('bs-BA'),\n    version: 'AIMED-transcribe-v5',\n    mode: ($('Webhook').item.json.body || {}).mode || 'new',\n    transcriptionEngine: 'elevenlabs-scribe-v2',\n    transcriptionConfidence: guardrail.confidence,\n    guardrail: {\n      triggered: true,\n      reason: guardrail.silenceReason,\n      transcriptLength: guardrail.transcriptLength,\n      wordCount: guardrail.wordCount,\n      duration: guardrail.duration\n    },\n    parseError: null\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        100,
+        560
+      ],
+      "id": "silence-resp-001",
+      "name": "Silence Error Response"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        350,
+        560
+      ],
+      "id": "resp-silence-001",
+      "name": "Respond Silence Error"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// AIMED v5 — Prepare Agent Context\n// Extracts ElevenLabs transcript + webhook metadata,\n// builds the user message for the AI Agent.\n// Guardrail has already validated that speech exists.\n// ═══════════════════════════════════════════════════════════\n\n// 1. Extract transcript from ElevenLabs Scribe v2 response\nconst elResponse = $json;\nconst transcript = (elResponse.text || '').trim();\nconst confidence = elResponse.language_probability || null;\nconst guardrail = elResponse._guardrail || {};\n\n// 2. Read form fields from original Webhook body\nconst webhookData = $('Webhook').item.json.body || {};\nconst mode = webhookData.mode || 'new';\n\nlet preferredSections;\ntry {\n  preferredSections = typeof webhookData.preferred_sections === 'string'\n    ? JSON.parse(webhookData.preferred_sections)\n    : webhookData.preferred_sections;\n} catch {\n  preferredSections = null;\n}\n\nconst defaultSections = ['ANAMNEZA', 'STATUS', 'DIJAGNOZA', 'TERAPIJA', 'PREPORUKE'];\nconst sections = (preferredSections && Array.isArray(preferredSections) && preferredSections.length > 0)\n  ? preferredSections\n  : defaultSections;\n\n// 3. Handle UPDATE mode — existing report data\nlet existingData = null;\nif (mode === 'update') {\n  try {\n    existingData = typeof webhookData.existing_data === 'string'\n      ? JSON.parse(webhookData.existing_data)\n      : webhookData.existing_data;\n  } catch {}\n}\n\nconst sectionList = sections.map(s => `\"${s}\"`).join(', ');\n\n// 4. Build user message for AI Agent\nlet userMessage;\n\nif (mode === 'update' && existingData) {\n  userMessage = `NAČIN RADA: AŽURIRANJE POSTOJEĆEG NALAZA\\n\\nPOSTOJEĆI NALAZ (JSON):\\n${JSON.stringify(existingData, null, 2)}\\n\\nDOZVOLJENE SEKCIJE: ${sectionList}\\n\\nNOVI TRANSKRIPT S IZMJENAMA:\\n${transcript}\\n\\nINSTRUKCIJE:\\n- Primijeni SAMO eksplicitno diktirane izmjene na postojeći nalaz.\\n- Sekcije koje transkript ne pominje ostavi IDENTIČNE originalu.\\n- Za svaku dijagnozu u tekstu, koristi alat mkb10_pretraga da pronađeš tačnu MKB-10 šifru.\\n- Za svaki lijek u tekstu, koristi alat registar_lijekova da provjeriš i ispravi naziv.\\n- Vrati ISKLJUČIVO validan JSON objekat sa ažuriranim sekcijama.`;\n} else {\n  userMessage = `NAČIN RADA: NOVI NALAZ\\n\\nDOZVOLJENE SEKCIJE: ${sectionList}\\n\\nTRANSKRIPT:\\n${transcript}\\n\\nINSTRUKCIJE:\\n- Semantički razvrstaš svaku rečenicu u odgovarajuću sekciju.\\n- Za svaku dijagnozu koju ljekar pomene, koristi alat mkb10_pretraga da pronađeš tačnu MKB-10 šifru.\\n- Za svaki lijek koji ljekar pomene, koristi alat registar_lijekova da provjeriš tačan naziv i dozu.\\n- Vrati ISKLJUČIVO validan JSON objekat. Uključi SAMO sekcije za koje postoji diktirani sadržaj.`;\n}\n\nreturn {\n  userMessage,\n  transcript,\n  sections,\n  mode,\n  confidence,\n  guardrailStats: {\n    wordCount: guardrail.wordCount,\n    duration: guardrail.duration\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        340
+      ],
+      "id": "prep-001",
+      "name": "Prepare Agent Context"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userMessage }}",
+        "options": {
+          "systemMessage": "Ti si AiMED, ultra-precizan medicinski AI agent za transkripciju i strukturiranje ljekarskih nalaza u Bosni i Hercegovini i Hrvatskoj.\n\n═══ TVOJA ULOGA ═══\nPrimaš transkribirani tekst glasovnog snimka ljekara i listu sekcija koju je ljekar definisao u svojim postavkama. Tvoj zadatak je:\n1. Semantički razvrstati diktirani sadržaj u odgovarajuće sekcije\n2. Validirati medicinske termine koristeći dostupne alate\n3. Ispraviti greške u nazivima lijekova i dijagnoza\n\n═══ SEMANTIČKO RAZVRSTAVANJE ═══\nAnaliziraj značenje svake rečenice i razvrstaš je u pravu sekciju:\n• \"Pacijent se žali na...\", \"Tegobe su počele...\", \"Ima bolove...\" → ANAMNEZA\n• \"Na pregledu se uočava...\", \"Krvni pritisak...\", \"Auskultacijski...\" → STATUS\n• Nazivi bolesti, šifre, latinski termini → DIJAGNOZA\n• \"Propisujem...\", \"Ordinirati...\", \"Terapija:...\" → TERAPIJA\n• \"Preporučujem...\", \"Kontrola za...\", \"Savjetujem...\" → PREPORUKE\n• Prilagodi se BILO KOJEM setu sekcija koji ljekar definiše — ne postoji fiksna struktura.\n\n═══ KORIŠTENJE ALATA ═══\n1. mkb10_pretraga: OBAVEZNO koristi za svaku dijagnozu ili bolest koju ljekar pomene.\n   → Format u tekstu: \"Naziv bolesti (MKB-10: X00.0)\"\n   → Primjer: Ljekar kaže \"išijas\" → koristi alat → rezultat M54.3 → upiši \"Ishijalgija (MKB-10: M54.3)\"\n\n2. registar_lijekova: OBAVEZNO koristi za svaki lijek koji ljekar pomene.\n   → Provjeri tačan trgovački naziv, generičko ime i dozu\n   → Ispravi fonetske greške: \"Sumam\" → \"Sumamed\", \"Brufen\" → \"Brufen\" (potvrdi)\n   → Format: \"Naziv lijeka doza oblik\" (npr. \"Sumamed 500mg filmom obložena tableta\")\n\n═══ STROGA PRAVILA — NULTA HALUCINACIJA ═══\n1. Koristi SAMO diktirani sadržaj. NIKADA ne izmišljaj ili dopunjuj tekst.\n2. ZABRANJENE SEKCIJE — nikada ne generiši ove ključeve:\n   PODACI O PACIJENTU, DATUM PREGLEDA, IME I PREZIME, JMBG,\n   DATUM ROĐENJA, ADRESA, KONTAKT, BROJ PROTOKOLA,\n   MATIČNI BROJ, DATUM NALAZA, ZAKLJUČAK\n3. BEZ PRAZNIH SEKCIJA: Ako za neku sekciju nema diktiranog sadržaja, NE uključuj je u JSON.\n4. TAČNOST BROJEVA: Doze lijekova, mjerenja, laboratorijske vrijednosti — prepiši IDENTIČNO. Ne zaokružuj.\n5. MEDICINSKI STIL: Formalan, koncizan. Latinska terminologija za dijagnoze.\n6. ISPRAVKA GREŠAKA: Ispravi gramatičke i pravopisne greške, ali NIKADA ne mijenjaj medicinski smisao.\n7. Ako transkript ne sadrži dovoljno informacija za ijednu sekciju, vrati prazan JSON: {}\n\n═══ FORMAT IZLAZA ═══\nTvoj finalni odgovor MORA biti ISKLJUČIVO validan JSON objekat.\nPočni sa { i završi sa }. NIKAKAV drugi tekst, objašnjenje ili markdown.\nKljučevi = nazivi sekcija VELIKIM SLOVIMA.\nVrijednosti = formatirani medicinski tekst za tu sekciju.\nAko primjetiš medicinsku nelogičnost ili kontradikciju, dodaj ključ \"_napomene\" sa kratkim opisom.",
+          "maxIterations": 8
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        550,
+        340
+      ],
+      "id": "agent-001",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-5-20250929",
+        "options": {
+          "temperature": 0,
+          "maxTokensToSample": 8192
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        550,
+        80
+      ],
+      "id": "llm-001",
+      "name": "Claude Sonnet 4.5",
+      "credentials": {
+        "anthropicApi": {
+          "id": "ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "mkb10_pretraga",
+        "description": "Pretražuje MKB-10 (Međunarodnu klasifikaciju bolesti) bazu podataka sa 39,848 kodova. Koristi ovaj alat SVAKI PUT kada ljekar pomene dijagnozu, bolest, sindrom ili simptom. Alat vraća tačnu MKB-10 šifru i standardiziran naziv na hrvatskom/bosanskom jeziku. Primjeri upita: 'išijas', 'hipertenzija', 'dijabetes tip 2', 'upala pluća'.",
+        "method": "POST",
+        "url": "https://ljtxybwihzyxocxzsizx.supabase.co/functions/v1/search-mkb10",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ query: $fromAI('query', 'Naziv dijagnoze, bolesti ili simptoma za pretragu MKB-10 baze.', 'string') }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        700
+      ],
+      "id": "tool-mkb-001",
+      "name": "MKB-10 Pretraga",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "SUPABASE_CREDENTIAL_ID",
+          "name": "Supabase Anon Key"
+        }
+      },
+      "notes": "Credential: httpHeaderAuth → Name: 'Authorization', Value: 'Bearer YOUR_SUPABASE_ANON_KEY'"
+    },
+    {
+      "parameters": {
+        "name": "registar_lijekova",
+        "description": "Pretražuje Registar lijekova Bosne i Hercegovine sa 3,406 lijekova. Koristi ovaj alat SVAKI PUT kada ljekar pomene naziv lijeka. Alat vraća tačan trgovački naziv, generičko ime (INN), dozu, farmaceutski oblik i ATC šifru. Posebno koristan za ispravku fonetskih grešaka u transkripciji (npr. 'Sumam' → 'Sumamed', 'amoksilin' → 'amoksicilin'). Primjeri upita: 'sumamed', 'brufen 400', 'amoksicilin', 'metformin'.",
+        "method": "POST",
+        "url": "https://ljtxybwihzyxocxzsizx.supabase.co/functions/v1/search-drugs",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ query: $fromAI('search_term', 'Naziv lijeka kako ga je ljekar izgovorio ili transkribovao.', 'string') }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        700,
+        700
+      ],
+      "id": "tool-drug-001",
+      "name": "Registar Lijekova BiH",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "SUPABASE_CREDENTIAL_ID",
+          "name": "Supabase Anon Key"
+        }
+      },
+      "notes": "Credential: httpHeaderAuth → Name: 'Authorization', Value: 'Bearer YOUR_SUPABASE_ANON_KEY'"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// AIMED v5 — Parse & Validate AI Agent Output\n// Enforces section whitelist, removes blacklisted keys,\n// returns structured response to frontend.\n// ═══════════════════════════════════════════════════════════\n\nconst agentOutput = $json.output || $json.text || '';\n\nconst buildData = $('Prepare Agent Context').item.json;\nconst expectedSections = buildData.sections || ['ANAMNEZA', 'STATUS', 'DIJAGNOZA', 'TERAPIJA', 'PREPORUKE'];\nconst mode = buildData.mode || 'new';\nconst transcript = buildData.transcript || '';\nconst confidence = buildData.confidence;\nconst guardrailStats = buildData.guardrailStats || {};\n\n// Administrative keys — NEVER pass through to frontend\nconst ADMIN_BLACKLIST = new Set([\n  'PODACI O PACIJENTU', 'DATUM PREGLEDA', 'IME I PREZIME', 'JMBG',\n  'DATUM ROĐENJA', 'ADRESA', 'KONTAKT', 'BROJ PROTOKOLA',\n  'MATIČNI BROJ', 'DATUM NALAZA', 'ZAKLJUČAK'\n]);\n\nlet sections = null;\nlet parseError = null;\nlet toolsUsed = [];\n\ntry {\n  let cleaned = agentOutput\n    .replace(/```json\\n?/g, '')\n    .replace(/```\\n?/g, '')\n    .trim();\n\n  // Extract JSON object from potentially wrapped text\n  const jsonStart = cleaned.indexOf('{');\n  const jsonEnd = cleaned.lastIndexOf('}');\n  if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {\n    cleaned = cleaned.slice(jsonStart, jsonEnd + 1);\n  }\n\n  const parsed = JSON.parse(cleaned);\n\n  // Strict whitelist enforcement\n  const allowedKeys = new Set(expectedSections.map(s => s.toUpperCase()));\n  allowedKeys.add('_napomene');\n\n  sections = {};\n  for (const [key, value] of Object.entries(parsed)) {\n    const upperKey = key.toUpperCase();\n\n    // Skip blacklisted admin sections\n    if (ADMIN_BLACKLIST.has(upperKey)) continue;\n\n    // Skip sections not in doctor's preferences (except _napomene)\n    if (key !== '_napomene' && !allowedKeys.has(upperKey)) continue;\n\n    // Skip empty/null values — zero-hallucination\n    if (value === null || value === undefined || value === '' || value === 'N/A' || value === 'n/a') continue;\n\n    sections[key] = value;\n  }\n\n  // Detect which tools were used (quality signal)\n  const allText = Object.values(sections).join(' ');\n  if (/MKB-10:|MKB10:/.test(allText)) toolsUsed.push('mkb10');\n  if (/\\b[A-Z]\\d{2}[A-Z]{2}\\d{2}\\b/.test(allText)) toolsUsed.push('atc_codes');\n  // Detect validated drug names (known from registry)\n  const knownDrugs = ['Sumamed', 'Brufen', 'Amoksicilin', 'Metformin', 'Ibuprofen', 'Diklofenak'];\n  if (knownDrugs.some(d => allText.includes(d))) toolsUsed.push('drug_registry');\n\n} catch (error) {\n  parseError = error.message;\n\n  // Fallback: use raw output as first section\n  sections = {};\n  if (agentOutput && agentOutput.length > 10) {\n    sections[expectedSections[0]] = agentOutput;\n  }\n}\n\nconst timestamp = new Date().toISOString();\nconst datumNalaza = new Date().toLocaleDateString('bs-BA');\n\nreturn {\n  success: !parseError,\n  sections,\n  metadata: {\n    generatedAt: timestamp,\n    datumNalaza: datumNalaza,\n    version: 'AIMED-transcribe-v5',\n    mode,\n    transcriptionEngine: 'elevenlabs-scribe-v2',\n    transcriptionConfidence: confidence,\n    toolsUsed,\n    guardrail: {\n      triggered: false,\n      wordCount: guardrailStats.wordCount,\n      duration: guardrailStats.duration\n    },\n    parseError: parseError\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        850,
+        340
+      ],
+      "id": "parse-001",
+      "name": "Parse & Validate"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1100,
+        340
+      ],
+      "id": "resp-001",
+      "name": "Respond with JSON"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "ElevenLabs Scribe v2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ElevenLabs Scribe v2": {
+      "main": [
+        [
+          {
+            "node": "Silence Guardrail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Silence Guardrail": {
+      "main": [
+        [
+          {
+            "node": "Has Speech?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Speech?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Agent Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Silence Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Silence Error Response": {
+      "main": [
+        [
+          {
+            "node": "Respond Silence Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Agent Context": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse & Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse & Validate": {
+      "main": [
+        [
+          {
+            "node": "Respond with JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Sonnet 4.5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MKB-10 Pretraga": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registar Lijekova BiH": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

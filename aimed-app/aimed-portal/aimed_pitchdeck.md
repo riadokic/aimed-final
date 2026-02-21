@@ -69,9 +69,9 @@ Papiri umjesto pacijenata.
 
 | Podatak | Vrijednost | Izvor |
 |---|---|---|
-| Radnog vremena na dokumentaciju | **26–27%** (13,5–15 h sedmično) | EHR studije, EU/SAD |
-| Sati dokumentacije **nakon** radnog vremena | **+1,7–1,8 h/dan** | EHR studije, EU/SAD |
-| Ljekara s burnout simptomima (dokumentacija gl. faktor) | **54%** | JAMA, 2023 |
+| Radnog vremena na dokumentaciju | **~27%** (~15 h sedmično) | Sinsky et al., Ann Int Med 2016; AMA 2022 |
+| Sati dokumentacije **izvan ordinirajućeg vremena** | **+1,8 h/dan** | Arndt et al., Ann Fam Med 2017; Medscape 2023 |
+| Ljekara s burnout simptomima (administracija faktor #1) | **53%** | Medscape Physician Burnout Report, 2023 |
 
 **[NARATIV]**
 ```
@@ -113,15 +113,15 @@ Previše papira.
 
 | Indikator | BiH | Prosjek EU | Razlika |
 |---|---|---|---|
-| Ljekara na 1.000 stanovnika | **~2,0** | 3,7 (Eurostat 2022) | **–46%** |
-| Ljekara porodične medicine u cijeloj BiH | **746** | — | nedostaje **~50%** (RTVBN 2023) |
+| Ljekara na 1.000 stanovnika | **~2,1** | 3,9 (Eurostat 2023) | **skoro –50%** |
+| Ljekara porodične medicine u cijeloj BiH | **~750** | — | deficit **~50%** (ZZJZFBIH / RTVBN 2023) |
 | Sati dokumentacije dnevno | **3–4 h** | — | od ukupnog radnog dana |
 
 **[NARATIV]**
 ```
 Bosna i Hercegovina ima ~5.800 aktivnih ljekara za 3,3 miliona stanovnika —
-gotovo upola manje od EU prosjeka. Od toga samo 746 ljekara porodične medicine
-za cijelu državu. Nedostaje 50%.
+skoro upola manje od EU prosjeka. Od toga samo ~750 ljekara porodične medicine
+za cijelu državu. Deficit oko 50%.
 
 Svaki ljekar u BiH de facto radi za dvojicu.
 A zatim provede trećinu tog pretrpanog radnog dana
@@ -133,10 +133,10 @@ direktno se pretvara u vreme s pacijentom.
 
 **[VIZUALNI ELEMENT]**
 ```
-🇪🇺  EU prosjek:   3,7 ljekara / 1.000 stanovnika
-🇧🇦  BiH:          ~2,0 ljekara / 1.000 stanovnika  (–46%)
+🇪🇺  EU prosjek:   3,9 ljekara / 1.000 stanovnika (Eurostat 2023)
+🇧🇦  BiH:          ~2,1 ljekara / 1.000 stanovnika  (skoro –50%)
 
-746 ljekara porodične medicine. Nedostaje ~50%. (RTVBN 2023)
+~750 ljekara porodične medicine. Deficit ~50%. (ZZJZFBIH / RTVBN 2023)
 
 + 3–4 sata dokumentacije svaki dan povrh toga.
 ```

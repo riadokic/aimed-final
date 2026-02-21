@@ -88,7 +88,7 @@ export default function HomePage() {
               </div>
               <Link
                 href="/novi-nalaz"
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-aimed-accent px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-aimed-accent-hover"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-aimed-accent px-5 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-aimed-accent-hover dark:bg-white dark:text-[#09090B] dark:hover:bg-[#E4E4E7]"
               >
                 Započni diktiranje
               </Link>
@@ -102,7 +102,7 @@ export default function HomePage() {
               </div>
               <Link
                 href="/novi-nalaz?mode=update"
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-aimed-gray-200 bg-aimed-white px-5 py-2.5 text-sm font-medium text-aimed-black transition-colors duration-200 hover:border-aimed-gray-400 hover:bg-aimed-gray-50"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-aimed-gray-200 bg-aimed-white px-5 py-3 text-sm font-medium text-aimed-black transition-all duration-300 hover:border-aimed-gray-400 hover:bg-aimed-gray-50"
               >
                 Učitaj nalaz
               </Link>

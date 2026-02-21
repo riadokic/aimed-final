@@ -11,6 +11,10 @@ export interface ParsedReport {
 
 export interface AimedApiResponse {
   success: boolean;
+  /** Error code from n8n (e.g. NO_SPEECH_DETECTED) */
+  error?: string;
+  /** Human-readable error message from n8n */
+  message?: string;
   /** Plain text report from n8n */
   report_text?: string;
   /** Structured sections from n8n (key-value) */

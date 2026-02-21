@@ -10,7 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-aimed-accent text-white hover:bg-aimed-accent-hover",
+  primary: "bg-aimed-accent text-white hover:bg-aimed-accent-hover dark:bg-white dark:text-[#09090B] dark:hover:bg-[#E4E4E7]",
   secondary: "bg-aimed-white text-aimed-black border border-aimed-gray-200 hover:bg-aimed-gray-50 hover:border-aimed-gray-400",
   ghost: "text-aimed-gray-500 hover:text-aimed-black hover:bg-aimed-gray-100",
   danger: "bg-aimed-red text-white hover:bg-red-700",
@@ -26,7 +26,7 @@ export function Button({ variant = "primary", size = "md", className, disabled, 
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-200",
+        "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-colors duration-300",
         "disabled:pointer-events-none disabled:opacity-40",
         variantStyles[variant],
         sizeStyles[size],

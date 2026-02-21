@@ -15,7 +15,7 @@ export function Header({ title, description, action }: HeaderProps) {
 
   return (
     <>
-      <div className="flex h-[72px] items-center justify-between border-b border-aimed-gray-200 bg-aimed-white px-8">
+      <div className="flex h-[72px] items-center justify-between border-b border-aimed-gray-200 bg-aimed-white dark:bg-[#0F0F11] px-8 transition-colors duration-300">
         <div>
           <h1 className="text-xl font-semibold text-aimed-black">{title}</h1>
           {description && (

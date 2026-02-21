@@ -12,7 +12,7 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   if (!mounted) {
     return (
-      <div className={cn("h-9 w-9 rounded-lg", className)} />
+      <div className={cn("h-9 w-9 rounded-xl", className)} />
     );
   }
 
@@ -22,8 +22,10 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200",
-        "hover:bg-aimed-gray-100 text-aimed-gray-500 hover:text-aimed-black",
+        "relative flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300",
+        isDark
+          ? "bg-aimed-gray-100 text-aimed-black hover:bg-aimed-gray-200"
+          : "text-aimed-gray-500 hover:bg-aimed-gray-100 hover:text-aimed-black",
         className
       )}
       aria-label={isDark ? "Prebaci na svijetli režim" : "Prebaci na tamni režim"}
@@ -47,11 +49,13 @@ export function ThemeToggle({ className }: { className?: string }) {
             d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
           />
         </svg>
-        {/* Moon icon */}
+        {/* Moon icon — monochrome, no color glow */}
         <svg
           className={cn(
             "absolute inset-0 h-5 w-5 transition-all duration-300",
-            isDark ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0"
+            isDark
+              ? "rotate-0 scale-100 opacity-100"
+              : "-rotate-90 scale-0 opacity-0"
           )}
           fill="none"
           viewBox="0 0 24 24"
